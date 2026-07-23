@@ -1,0 +1,5 @@
+{
+    "The :attribute field is required.": "Поле :attribute обязательно.",
+    "The :attribute must be a valid email address.": ":attribute должен быть корректным email.",
+    "These credentials do not match our records.": "Неверный email или пароль."
+}

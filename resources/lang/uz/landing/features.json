@@ -1,0 +1,29 @@
+{
+    "heading": "Kiberxavfsizlikda oʻsish uchun barchasi",
+    "items": {
+        "dynamic_flags": {
+            "title": "Dinamik bayroqlar",
+            "body": "Har bir bayroq sizning akkauntingizga bogʻlangan — Telegramda ulashish foydasiz."
+        },
+        "modern_categories": {
+            "title": "Zamonaviy kategoriyalar",
+            "body": "Web, AI/LLM prompt injection, kripto, forenzika, OSINT — 2026-yilga mos."
+        },
+        "streaks_xp": {
+            "title": "XP, streak, nishonlar",
+            "body": "Har kuni progress. Kunlik seriya, Bronze-dan Diamond-gacha darajalar, yutuqlar uchun nishonlar."
+        },
+        "leaderboards": {
+            "title": "Reyting jadvallari",
+            "body": "Global, haftalik va kategoriya boʻyicha. Jamiyat bilan raqobatlashing."
+        },
+        "writeups": {
+            "title": "Rayt-aplar",
+            "body": "Masala yechilgach yechimingizni ulashing. Eng kuchlilardan oʻrganing."
+        },
+        "trilingual": {
+            "title": "RU / UZ / EN",
+            "body": "Toʻliq oʻzbek tilidagi birinchi CTF-platforma."
+        }
+    }
+}

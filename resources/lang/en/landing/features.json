@@ -1,0 +1,29 @@
+{
+    "heading": "Everything you need to level up in cybersec",
+    "items": {
+        "dynamic_flags": {
+            "title": "Dynamic flags",
+            "body": "Each flag is tied to your account — sharing on Telegram is useless."
+        },
+        "modern_categories": {
+            "title": "Modern categories",
+            "body": "Web, AI/LLM prompt injection, crypto, forensics, OSINT — the stack that matters in 2026."
+        },
+        "streaks_xp": {
+            "title": "XP, streaks, badges",
+            "body": "Show up daily. Streak counter, ranks from Bronze to Diamond, achievement badges."
+        },
+        "leaderboards": {
+            "title": "Leaderboards",
+            "body": "Global, weekly, and per-category. Compete with the community."
+        },
+        "writeups": {
+            "title": "Writeups",
+            "body": "Publish your solution after solving. Learn from the top players."
+        },
+        "trilingual": {
+            "title": "RU / UZ / EN",
+            "body": "The first CTF platform with a full Uzbek interface."
+        }
+    }
+}
