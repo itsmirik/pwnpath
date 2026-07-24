@@ -1,5 +1,9 @@
 {
     "The :attribute field is required.": "Поле :attribute обязательно.",
     "The :attribute must be a valid email address.": ":attribute должен быть корректным email.",
-    "These credentials do not match our records.": "Неверный email или пароль."
+    "These credentials do not match our records.": "Неверный email или пароль.",
+    "validation.captcha.missing": "Пройдите проверку каптчи.",
+    "validation.captcha.failed": "Каптча не пройдена. Повторите попытку.",
+    "The username has already been taken.": "Этот логин уже занят.",
+    "The username may only contain lowercase letters, numbers, and underscores.": "Логин может содержать только строчные латинские буквы, цифры и подчёркивания."
 }

@@ -19,6 +19,8 @@ declare module '@inertiajs/core' {
             name: string;
             auth: Auth;
             sidebarOpen: boolean;
+            locale: string;
+            hcaptcha: { sitekey: string | null };
             [key: string]: unknown;
         };
     }

@@ -1,0 +1,18 @@
+{
+    "title": "Profil sozlamalari",
+    "section": "Profil",
+    "section_desc": "Ochiq profil maʼlumotlarini yangilang.",
+    "display_name": "Koʻrsatiladigan ism",
+    "username": "Login",
+    "username_locked": "Login roʻyxatdan oʻtishda beriladi, oʻzgartirib boʻlmaydi.",
+    "email": "Email",
+    "bio": "O'zim haqimda",
+    "bio_placeholder": "Nima bilan shugʻullanishingizni yozing.",
+    "avatar_color": "Avatar rangi",
+    "country_code": "Davlat (ISO kodi)",
+    "locale": "Til",
+    "save": "Saqlash",
+    "unverified": "Email tasdiqlanmagan.",
+    "resend_verification": "Tasdiqlash havolasini qayta yuborish.",
+    "verification_sent": "Yangi havola yuborildi."
+}

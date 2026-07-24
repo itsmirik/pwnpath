@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -9,20 +10,26 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SetLocale
 {
-    private const SUPPORTED = ['ru', 'uz', 'en'];
-
     /**
      * @param  Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = $request->cookie('locale');
+        $locale = null;
 
-        if (! is_string($locale) || ! in_array($locale, self::SUPPORTED, true)) {
-            $locale = config('app.locale');
+        $user = $request->user();
+        if ($user instanceof User && in_array($user->locale, User::LOCALES, true)) {
+            $locale = $user->locale;
         }
 
-        App::setLocale($locale);
+        if ($locale === null) {
+            $cookie = $request->cookie('locale');
+            if (is_string($cookie) && in_array($cookie, User::LOCALES, true)) {
+                $locale = $cookie;
+            }
+        }
+
+        App::setLocale($locale ?? config('app.locale'));
 
         return $next($request);
     }

@@ -1,0 +1,49 @@
+{
+    "register": {
+        "title": "Регистрация в HackTepa",
+        "description": "Бесплатно. Без карты. Подтвердите email — и в бой.",
+        "username": "Логин",
+        "username_hint": "3–32 символа. Строчные латинские, цифры, подчёркивания.",
+        "display_name": "Отображаемое имя",
+        "display_name_hint": "Показывается в профиле и рейтинге.",
+        "email": "Email",
+        "password": "Пароль",
+        "password_confirm": "Подтвердите пароль",
+        "locale": "Язык",
+        "submit": "Создать аккаунт",
+        "have_account": "Уже есть аккаунт?",
+        "log_in": "Войти"
+    },
+    "login": {
+        "title": "Вход в HackTepa",
+        "description": "Введите email и пароль.",
+        "email": "Email",
+        "password": "Пароль",
+        "remember": "Запомнить меня",
+        "forgot": "Забыли пароль?",
+        "submit": "Войти",
+        "no_account": "Нет аккаунта?",
+        "sign_up": "Зарегистрироваться"
+    },
+    "forgot": {
+        "title": "Сброс пароля",
+        "description": "Введите email — пришлём ссылку для сброса.",
+        "email": "Email",
+        "submit": "Отправить ссылку",
+        "back": "Вернуться ко входу"
+    },
+    "reset": {
+        "title": "Новый пароль",
+        "email": "Email",
+        "password": "Новый пароль",
+        "password_confirm": "Подтвердите пароль",
+        "submit": "Сохранить пароль"
+    },
+    "verify": {
+        "title": "Подтвердите email",
+        "description": "Мы отправили ссылку. Кликните её, чтобы активировать аккаунт.",
+        "resend": "Отправить письмо ещё раз",
+        "logout": "Выйти",
+        "sent": "Новая ссылка отправлена на ваш email."
+    }
+}

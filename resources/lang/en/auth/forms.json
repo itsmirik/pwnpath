@@ -1,0 +1,49 @@
+{
+    "register": {
+        "title": "Create your HackTepa account",
+        "description": "Free forever. No credit card. Verify email to start solving.",
+        "username": "Username",
+        "username_hint": "3–32 chars. Lowercase letters, numbers, underscores.",
+        "display_name": "Display name",
+        "display_name_hint": "Shown on your profile and the leaderboard.",
+        "email": "Email",
+        "password": "Password",
+        "password_confirm": "Confirm password",
+        "locale": "Language",
+        "submit": "Create account",
+        "have_account": "Already have an account?",
+        "log_in": "Log in"
+    },
+    "login": {
+        "title": "Log in to HackTepa",
+        "description": "Enter your email and password below.",
+        "email": "Email",
+        "password": "Password",
+        "remember": "Remember me",
+        "forgot": "Forgot your password?",
+        "submit": "Log in",
+        "no_account": "Don't have an account?",
+        "sign_up": "Sign up"
+    },
+    "forgot": {
+        "title": "Reset your password",
+        "description": "Enter your email — we'll send a reset link.",
+        "email": "Email",
+        "submit": "Email reset link",
+        "back": "Back to log in"
+    },
+    "reset": {
+        "title": "Choose a new password",
+        "email": "Email",
+        "password": "New password",
+        "password_confirm": "Confirm new password",
+        "submit": "Reset password"
+    },
+    "verify": {
+        "title": "Verify your email",
+        "description": "We sent a verification link to your inbox. Click it to activate your account.",
+        "resend": "Resend verification email",
+        "logout": "Log out",
+        "sent": "A new verification link has been sent to your email."
+    }
+}

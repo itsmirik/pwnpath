@@ -1,0 +1,48 @@
+{
+    "title": "Challenges",
+    "subtitle": "Practice CTF challenges across web, crypto, forensics, OSINT, LLM and misc.",
+    "empty": "No challenges match these filters yet.",
+    "empty_hint": "Try clearing filters or check back soon — new challenges ship weekly.",
+    "filters": {
+        "category": "Category",
+        "difficulty": "Difficulty",
+        "solved": "Status",
+        "sort": "Sort",
+        "any": "Any",
+        "clear": "Reset filters"
+    },
+    "category": {
+        "web": "Web",
+        "crypto": "Crypto",
+        "forensics": "Forensics",
+        "osint": "OSINT",
+        "llm": "AI / LLM",
+        "misc": "Misc"
+    },
+    "difficulty": {
+        "easy": "Easy",
+        "medium": "Medium",
+        "hard": "Hard"
+    },
+    "solved": {
+        "all": "All",
+        "solved": "Solved",
+        "unsolved": "Unsolved"
+    },
+    "sort": {
+        "newest": "Newest",
+        "oldest": "Oldest",
+        "points_desc": "Most points",
+        "points_asc": "Fewest points",
+        "solves_desc": "Most solved"
+    },
+    "card": {
+        "points": "{n} pts",
+        "solves": "{n} solves"
+    },
+    "pagination": {
+        "prev": "Previous",
+        "next": "Next",
+        "count": "Page {current} of {last}"
+    }
+}

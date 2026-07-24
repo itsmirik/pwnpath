@@ -1,0 +1,49 @@
+{
+    "register": {
+        "title": "HackTepa'da roʻyxatdan oʻting",
+        "description": "Bepul. Karta kerak emas. Email tasdiqlang — masalalarga kirishing.",
+        "username": "Login",
+        "username_hint": "3–32 belgi. Kichik lotin, raqam, tagchiziq.",
+        "display_name": "Koʻrsatiladigan ism",
+        "display_name_hint": "Profil va reytingda koʻrinadi.",
+        "email": "Email",
+        "password": "Parol",
+        "password_confirm": "Parolni tasdiqlang",
+        "locale": "Til",
+        "submit": "Akkaunt yaratish",
+        "have_account": "Akkauntingiz bormi?",
+        "log_in": "Kirish"
+    },
+    "login": {
+        "title": "HackTepa'ga kirish",
+        "description": "Email va parolni kiriting.",
+        "email": "Email",
+        "password": "Parol",
+        "remember": "Meni eslab qol",
+        "forgot": "Parolni unutdingizmi?",
+        "submit": "Kirish",
+        "no_account": "Akkaunt yoʻqmi?",
+        "sign_up": "Roʻyxatdan oʻtish"
+    },
+    "forgot": {
+        "title": "Parolni tiklash",
+        "description": "Emailingizni kiriting — havola yuboramiz.",
+        "email": "Email",
+        "submit": "Havola yuborish",
+        "back": "Kirishga qaytish"
+    },
+    "reset": {
+        "title": "Yangi parol",
+        "email": "Email",
+        "password": "Yangi parol",
+        "password_confirm": "Parolni tasdiqlang",
+        "submit": "Parolni saqlash"
+    },
+    "verify": {
+        "title": "Emailni tasdiqlang",
+        "description": "Havola yubordik. Akkauntni faollashtirish uchun bosing.",
+        "resend": "Havolani qayta yuborish",
+        "logout": "Chiqish",
+        "sent": "Yangi havola emailingizga yuborildi."
+    }
+}

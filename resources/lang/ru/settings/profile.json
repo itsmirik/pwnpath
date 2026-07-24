@@ -1,0 +1,18 @@
+{
+    "title": "Настройки профиля",
+    "section": "Профиль",
+    "section_desc": "Обновите публичные данные профиля.",
+    "display_name": "Отображаемое имя",
+    "username": "Логин",
+    "username_locked": "Логин задаётся при регистрации и не меняется.",
+    "email": "Email",
+    "bio": "О себе",
+    "bio_placeholder": "Расскажите, чем занимаетесь.",
+    "avatar_color": "Цвет аватара",
+    "country_code": "Страна (ISO-код)",
+    "locale": "Язык",
+    "save": "Сохранить",
+    "unverified": "Email не подтверждён.",
+    "resend_verification": "Отправить письмо ещё раз.",
+    "verification_sent": "Новая ссылка отправлена."
+}

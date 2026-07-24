@@ -1,0 +1,32 @@
+{
+    "back": "Barcha masalalar",
+    "meta": {
+        "points": "{n} ochko",
+        "solves": "{n} yechim"
+    },
+    "hints": {
+        "heading": "Maslahatlar",
+        "locked_title": "Maslahatlarni koʻrish uchun kiring",
+        "locked_body": "Maslahatlar tizimga kirgan foydalanuvchilar uchun ochiladi. Bepul roʻyxatdan oʻting.",
+        "empty": "Ushbu masala uchun maslahat yoʻq."
+    },
+    "files": {
+        "heading": "Fayllar",
+        "empty": "Yuklanadigan fayllar yoʻq.",
+        "locked": "Fayllarni yuklab olish uchun tizimga kiring.",
+        "size_bytes": "{n} B",
+        "size_kb": "{n} KB",
+        "size_mb": "{n} MB"
+    },
+    "submit": {
+        "heading": "Bayroqni yuborish",
+        "placeholder": "HTP{...}",
+        "help": "Format: {format}",
+        "button": "Yuborish",
+        "submitting": "Yuborilmoqda…",
+        "locked_title": "Bayroq yuborish uchun kiring",
+        "locked_body": "Faqat tasdiqlangan foydalanuvchilar bayroq yuborishi mumkin.",
+        "stub": "Bayroq tekshiruvi keyingi bosqichda ishga tushadi.",
+        "error_generic": "Xatolik yuz berdi. Qayta urinib koʻring."
+    }
+}

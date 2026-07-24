@@ -9,31 +9,71 @@ use Illuminate\Validation\Rule;
 trait ProfileValidationRules
 {
     /**
-     * Get the validation rules used to validate user profiles.
+     * Rules applied on signup (all fields required).
      *
      * @return array<string, array<int, ValidationRule|array<mixed>|string>>
      */
-    protected function profileRules(?int $userId = null): array
+    protected function signupRules(): array
     {
         return [
-            'name' => $this->nameRules(),
-            'email' => $this->emailRules($userId),
+            'username' => $this->usernameRules(),
+            'email' => $this->emailRules(),
+            'display_name' => $this->displayNameRules(),
+            'locale' => $this->localeRules(),
         ];
     }
 
     /**
-     * Get the validation rules used to validate user names.
+     * Rules applied when editing an existing profile.
      *
-     * @return array<int, ValidationRule|array<mixed>|string>
+     * @return array<string, array<int, ValidationRule|array<mixed>|string>>
      */
-    protected function nameRules(): array
+    protected function profileEditRules(int $userId): array
     {
-        return ['required', 'string', 'max:255'];
+        return [
+            'email' => $this->emailRules($userId),
+            'display_name' => $this->displayNameRules(),
+            'bio' => ['nullable', 'string', 'max:300'],
+            'avatar_color' => ['required', 'string', 'regex:/^#[0-9a-fA-F]{6}$/'],
+            'country_code' => ['nullable', 'string', 'size:2', 'alpha'],
+            'locale' => $this->localeRules(),
+        ];
     }
 
     /**
-     * Get the validation rules used to validate user emails.
-     *
+     * @return array<int, ValidationRule|array<mixed>|string>
+     */
+    protected function usernameRules(?int $userId = null): array
+    {
+        return [
+            'required',
+            'string',
+            'min:3',
+            'max:32',
+            'regex:/^[a-z0-9_]+$/',
+            $userId === null
+                ? Rule::unique(User::class, 'username')
+                : Rule::unique(User::class, 'username')->ignore($userId),
+        ];
+    }
+
+    /**
+     * @return array<int, ValidationRule|array<mixed>|string>
+     */
+    protected function displayNameRules(): array
+    {
+        return ['required', 'string', 'max:64'];
+    }
+
+    /**
+     * @return array<int, ValidationRule|array<mixed>|string>
+     */
+    protected function localeRules(): array
+    {
+        return ['required', 'string', Rule::in(User::LOCALES)];
+    }
+
+    /**
      * @return array<int, ValidationRule|array<mixed>|string>
      */
     protected function emailRules(?int $userId = null): array

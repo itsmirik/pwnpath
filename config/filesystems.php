@@ -60,6 +60,22 @@ return [
             'report' => false,
         ],
 
+        'challenges' => [
+            'driver' => env('CHALLENGES_DISK_DRIVER', 's3'),
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('CHALLENGES_S3_BUCKET', env('AWS_BUCKET')),
+            'endpoint' => env('AWS_ENDPOINT'),
+            'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', true),
+            'root' => env('CHALLENGES_DISK_DRIVER') === 'local'
+                ? storage_path('app/challenges')
+                : env('CHALLENGES_S3_PREFIX', 'challenges'),
+            'visibility' => 'private',
+            'throw' => false,
+            'report' => false,
+        ],
+
     ],
 
     /*

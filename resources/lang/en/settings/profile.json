@@ -1,0 +1,18 @@
+{
+    "title": "Profile settings",
+    "section": "Profile",
+    "section_desc": "Update your public profile details.",
+    "display_name": "Display name",
+    "username": "Username",
+    "username_locked": "Username is set at signup and can't be changed.",
+    "email": "Email",
+    "bio": "Bio",
+    "bio_placeholder": "Tell others what you hack on.",
+    "avatar_color": "Avatar color",
+    "country_code": "Country (ISO code)",
+    "locale": "Language",
+    "save": "Save",
+    "unverified": "Your email is unverified.",
+    "resend_verification": "Click here to re-send the verification email.",
+    "verification_sent": "A new verification link has been sent."
+}

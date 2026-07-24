@@ -19,13 +19,17 @@ const messages: AllMessages = { ru: {}, uz: {}, en: {} };
 
 for (const path in modules) {
     // path shape: ../lang/{locale}/{module}/{feature}.json
-    const match = path.match(
-        /\/lang\/([^/]+)\/([^/]+)\/([^/]+)\.json$/,
-    );
-    if (!match) continue;
+    const match = path.match(/\/lang\/([^/]+)\/([^/]+)\/([^/]+)\.json$/);
+
+    if (!match) {
+        continue;
+    }
 
     const [, locale, module, feature] = match;
-    if (!SUPPORTED_LOCALES.includes(locale as Locale)) continue;
+
+    if (!SUPPORTED_LOCALES.includes(locale as Locale)) {
+        continue;
+    }
 
     const loc = locale as Locale;
     messages[loc][module] ??= {};
@@ -35,14 +39,21 @@ for (const path in modules) {
 function detectLocale(): Locale {
     if (typeof document !== 'undefined') {
         const htmlLang = document.documentElement.lang?.split('-')[0];
+
         if (SUPPORTED_LOCALES.includes(htmlLang as Locale)) {
             return htmlLang as Locale;
         }
+
         const cookieMatch = document.cookie.match(/(?:^|;\s*)locale=([^;]+)/);
-        if (cookieMatch && SUPPORTED_LOCALES.includes(cookieMatch[1] as Locale)) {
+
+        if (
+            cookieMatch &&
+            SUPPORTED_LOCALES.includes(cookieMatch[1] as Locale)
+        ) {
             return cookieMatch[1] as Locale;
         }
     }
+
     return DEFAULT_LOCALE;
 }
 

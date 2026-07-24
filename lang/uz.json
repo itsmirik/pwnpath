@@ -1,5 +1,9 @@
 {
     "The :attribute field is required.": ":attribute maydoni majburiy.",
     "The :attribute must be a valid email address.": ":attribute toʻgʻri email boʻlishi kerak.",
-    "These credentials do not match our records.": "Email yoki parol notoʻgʻri."
+    "These credentials do not match our records.": "Email yoki parol notoʻgʻri.",
+    "validation.captcha.missing": "Iltimos, kapchani oʻting.",
+    "validation.captcha.failed": "Kapcha tekshiruvidan oʻtmadi. Qayta urinib koʻring.",
+    "The username has already been taken.": "Bu foydalanuvchi nomi band.",
+    "The username may only contain lowercase letters, numbers, and underscores.": "Foydalanuvchi nomida faqat kichik lotin harflari, raqamlar va tagchiziq boʻlishi mumkin."
 }

@@ -1,0 +1,48 @@
+{
+    "title": "Задачи",
+    "subtitle": "Практические CTF-задачи: web, крипто, форензика, OSINT, LLM и разное.",
+    "empty": "По этим фильтрам задач не нашлось.",
+    "empty_hint": "Сбросьте фильтры или загляните позже — новые задачи выходят еженедельно.",
+    "filters": {
+        "category": "Категория",
+        "difficulty": "Сложность",
+        "solved": "Статус",
+        "sort": "Сортировка",
+        "any": "Любая",
+        "clear": "Сбросить фильтры"
+    },
+    "category": {
+        "web": "Web",
+        "crypto": "Крипто",
+        "forensics": "Форензика",
+        "osint": "OSINT",
+        "llm": "AI / LLM",
+        "misc": "Разное"
+    },
+    "difficulty": {
+        "easy": "Лёгкая",
+        "medium": "Средняя",
+        "hard": "Сложная"
+    },
+    "solved": {
+        "all": "Все",
+        "solved": "Решённые",
+        "unsolved": "Нерешённые"
+    },
+    "sort": {
+        "newest": "Новые",
+        "oldest": "Старые",
+        "points_desc": "Больше очков",
+        "points_asc": "Меньше очков",
+        "solves_desc": "Больше решений"
+    },
+    "card": {
+        "points": "{n} очк.",
+        "solves": "{n} решений"
+    },
+    "pagination": {
+        "prev": "Назад",
+        "next": "Вперёд",
+        "count": "Страница {current} из {last}"
+    }
+}

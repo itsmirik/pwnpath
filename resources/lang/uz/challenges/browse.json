@@ -1,0 +1,48 @@
+{
+    "title": "Masalalar",
+    "subtitle": "Web, kripto, forensika, OSINT, LLM va boshqa yoʻnalishlar boʻyicha CTF masalalari.",
+    "empty": "Ushbu filtrlarga mos masala topilmadi.",
+    "empty_hint": "Filtrlarni tozalang yoki keyinroq qayting — yangi masalalar har hafta chiqadi.",
+    "filters": {
+        "category": "Kategoriya",
+        "difficulty": "Qiyinchilik",
+        "solved": "Holat",
+        "sort": "Saralash",
+        "any": "Har qanday",
+        "clear": "Filtrlarni tozalash"
+    },
+    "category": {
+        "web": "Web",
+        "crypto": "Kripto",
+        "forensics": "Forensika",
+        "osint": "OSINT",
+        "llm": "AI / LLM",
+        "misc": "Boshqa"
+    },
+    "difficulty": {
+        "easy": "Oson",
+        "medium": "Oʻrta",
+        "hard": "Qiyin"
+    },
+    "solved": {
+        "all": "Barchasi",
+        "solved": "Yechilgan",
+        "unsolved": "Yechilmagan"
+    },
+    "sort": {
+        "newest": "Yangilari",
+        "oldest": "Eskilari",
+        "points_desc": "Ko‘p ochko",
+        "points_asc": "Kam ochko",
+        "solves_desc": "Ko‘p yechilgan"
+    },
+    "card": {
+        "points": "{n} ochko",
+        "solves": "{n} yechim"
+    },
+    "pagination": {
+        "prev": "Orqaga",
+        "next": "Oldinga",
+        "count": "{current} / {last} sahifa"
+    }
+}

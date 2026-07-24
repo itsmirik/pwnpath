@@ -1,0 +1,32 @@
+{
+    "back": "All challenges",
+    "meta": {
+        "points": "{n} points",
+        "solves": "{n} solves"
+    },
+    "hints": {
+        "heading": "Hints",
+        "locked_title": "Log in to reveal hints",
+        "locked_body": "Hints unlock for authenticated users. Sign in or create a free account.",
+        "empty": "No hints for this challenge."
+    },
+    "files": {
+        "heading": "Files",
+        "empty": "No downloadable files.",
+        "locked": "Log in to download challenge files.",
+        "size_bytes": "{n} B",
+        "size_kb": "{n} KB",
+        "size_mb": "{n} MB"
+    },
+    "submit": {
+        "heading": "Submit flag",
+        "placeholder": "HTP{...}",
+        "help": "Format: {format}",
+        "button": "Submit",
+        "submitting": "Submitting…",
+        "locked_title": "Log in to submit a flag",
+        "locked_body": "Only verified accounts can submit flags.",
+        "stub": "Flag validation ships in the next phase.",
+        "error_generic": "Something went wrong. Try again."
+    }
+}

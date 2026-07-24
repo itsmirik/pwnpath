@@ -1,5 +1,9 @@
 {
     "The :attribute field is required.": "The :attribute field is required.",
     "The :attribute must be a valid email address.": "The :attribute must be a valid email address.",
-    "These credentials do not match our records.": "These credentials do not match our records."
+    "These credentials do not match our records.": "These credentials do not match our records.",
+    "validation.captcha.missing": "Please complete the captcha challenge.",
+    "validation.captcha.failed": "Captcha verification failed. Please try again.",
+    "The username has already been taken.": "The username has already been taken.",
+    "The username may only contain lowercase letters, numbers, and underscores.": "The username may only contain lowercase letters, numbers, and underscores."
 }

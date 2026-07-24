@@ -1,12 +1,27 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import { home } from '@/routes';
 
-defineProps<{
+const props = defineProps<{
     title?: string;
     description?: string;
 }>();
+
+const { t, te } = useI18n();
+
+function tr(value: string | undefined): string {
+    if (!value) {
+        return '';
+    }
+
+    return te(value) ? t(value) : value;
+}
+
+const heading = computed(() => tr(props.title));
+const subheading = computed(() => tr(props.description));
 </script>
 
 <template>
@@ -27,12 +42,12 @@ defineProps<{
                                 class="size-9 fill-current text-[var(--foreground)] dark:text-white"
                             />
                         </div>
-                        <span class="sr-only">{{ title }}</span>
+                        <span class="sr-only">{{ heading }}</span>
                     </Link>
                     <div class="space-y-2 text-center">
-                        <h1 class="text-xl font-medium">{{ title }}</h1>
+                        <h1 class="text-xl font-medium">{{ heading }}</h1>
                         <p class="text-center text-sm text-muted-foreground">
-                            {{ description }}
+                            {{ subheading }}
                         </p>
                     </div>
                 </div>
