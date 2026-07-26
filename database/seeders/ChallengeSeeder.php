@@ -6,6 +6,7 @@ use App\Models\Challenge;
 use App\Models\ChallengeFile;
 use App\Models\ChallengeTranslation;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class ChallengeSeeder extends Seeder
 {
@@ -111,11 +112,21 @@ class ChallengeSeeder extends Seeder
             }
 
             foreach ($data['files'] as $file) {
+                $storagePath = sprintf('%s/%s', $challenge->slug, $file['filename']);
+                $placeholder = sprintf(
+                    "Placeholder content for %s.\nReal challenge assets are not authored yet — see plan §16.\n",
+                    $file['filename'],
+                );
+
+                Storage::disk('challenges')->put($storagePath, $placeholder);
+
                 ChallengeFile::updateOrCreate(
                     ['challenge_id' => $challenge->id, 'filename' => $file['filename']],
-                    array_merge($file, [
-                        'storage_path' => sprintf('%s/%s', $challenge->slug, $file['filename']),
-                    ]),
+                    [
+                        'mime_type' => $file['mime_type'],
+                        'storage_path' => $storagePath,
+                        'size_bytes' => strlen($placeholder),
+                    ],
                 );
             }
         }

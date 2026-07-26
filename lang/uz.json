@@ -5,5 +5,6 @@
     "validation.captcha.missing": "Iltimos, kapchani oʻting.",
     "validation.captcha.failed": "Kapcha tekshiruvidan oʻtmadi. Qayta urinib koʻring.",
     "The username has already been taken.": "Bu foydalanuvchi nomi band.",
-    "The username may only contain lowercase letters, numbers, and underscores.": "Foydalanuvchi nomida faqat kichik lotin harflari, raqamlar va tagchiziq boʻlishi mumkin."
+    "The username may only contain lowercase letters, numbers, and underscores.": "Foydalanuvchi nomida faqat kichik lotin harflari, raqamlar va tagchiziq boʻlishi mumkin.",
+    "auth.signup_ip_limit": "Bugun shu tarmoqdan juda koʻp akkaunt ochildi. Ertaga urinib koʻring."
 }

@@ -40,4 +40,12 @@ class ChallengeFactory extends Factory
             'published_at' => null,
         ]);
     }
+
+    public function staticFlag(string $flag = 'HTP{static_tutorial_flag_0001}'): static
+    {
+        return $this->state(fn () => [
+            'flag_type' => Challenge::FLAG_STATIC,
+            'static_flag' => $flag,
+        ]);
+    }
 }

@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Challenge;
 use App\Models\ChallengeFile;
+use App\Models\ChallengeView;
+use App\Models\Solve;
+use App\Models\User;
+use App\Services\SubmitFlagService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -22,6 +26,10 @@ class ChallengeController extends Controller
 
     private const SOLVED_FILTERS = ['all', 'solved', 'unsolved'];
 
+    public function __construct(
+        private readonly SubmitFlagService $submitFlag,
+    ) {}
+
     public function index(Request $request): Response
     {
         $filters = $request->validate([
@@ -34,6 +42,7 @@ class ChallengeController extends Controller
         $locale = app()->getLocale();
         $sort = $filters['sort'] ?? 'newest';
         $solvedFilter = $filters['solved'] ?? 'all';
+        $user = $request->user();
 
         /** @var Builder<Challenge> $query */
         $query = Challenge::query()
@@ -48,9 +57,17 @@ class ChallengeController extends Controller
             $query->where('difficulty', $filters['difficulty']);
         }
 
-        // Phase 4 hooks solved/unsolved to the solves table. For now the filter
-        // is accepted but returns the full list — plumbing so UI is stable.
-        // if ($request->user() && $solvedFilter !== 'all') { ... }
+        if ($user !== null && $solvedFilter !== 'all') {
+            $solvedSub = Solve::query()
+                ->select('challenge_id')
+                ->where('user_id', $user->id);
+
+            if ($solvedFilter === 'solved') {
+                $query->whereIn('id', $solvedSub);
+            } else {
+                $query->whereNotIn('id', $solvedSub);
+            }
+        }
 
         match ($sort) {
             'oldest' => $query->orderBy('published_at'),
@@ -62,6 +79,15 @@ class ChallengeController extends Controller
 
         $challenges = $query->paginate(24)->withQueryString();
 
+        $solvedIds = [];
+        if ($user !== null && $challenges->isNotEmpty()) {
+            $solvedIds = Solve::query()
+                ->where('user_id', $user->id)
+                ->whereIn('challenge_id', $challenges->getCollection()->pluck('id'))
+                ->pluck('challenge_id')
+                ->all();
+        }
+
         return Inertia::render('challenges/Index', [
             'challenges' => [
                 'data' => $challenges->getCollection()->map(fn (Challenge $c) => [
@@ -71,6 +97,7 @@ class ChallengeController extends Controller
                     'difficulty' => $c->difficulty,
                     'points' => $c->points,
                     'solve_count' => $c->solve_count,
+                    'is_solved' => in_array($c->id, $solvedIds, true),
                     'url' => route('challenges.show', $c->slug),
                 ])->all(),
                 'meta' => [
@@ -105,7 +132,20 @@ class ChallengeController extends Controller
 
         $locale = app()->getLocale();
         $challenge->load(['translations', 'files']);
-        $isAuthed = $request->user() !== null;
+        $user = $request->user();
+        $isAuthed = $user !== null;
+
+        if ($isAuthed) {
+            ChallengeView::query()->firstOrCreate(
+                [
+                    'user_id' => $user->id,
+                    'challenge_id' => $challenge->id,
+                ],
+                ['first_viewed_at' => now()],
+            );
+        }
+
+        $isSolved = $isAuthed && $user->hasSolved($challenge);
 
         return Inertia::render('challenges/Show', [
             'challenge' => [
@@ -118,6 +158,7 @@ class ChallengeController extends Controller
                 'solve_count' => $challenge->solve_count,
                 'flag_format' => $challenge->flag_format,
                 'published_at' => $challenge->published_at?->toIso8601String(),
+                'is_solved' => $isSolved,
                 'hints' => $isAuthed
                     ? array_values(array_filter([
                         $challenge->tr('hint_1', $locale),
@@ -138,7 +179,7 @@ class ChallengeController extends Controller
                         )
                         : null,
                 ])->all(),
-                'can_submit' => $isAuthed,
+                'can_submit' => $isAuthed && ! $isSolved,
                 'submit_url' => route('challenges.submit', $challenge->slug),
             ],
         ]);
@@ -148,11 +189,20 @@ class ChallengeController extends Controller
     {
         abort_unless($challenge->status === Challenge::STATUS_PUBLISHED, 404);
 
-        // Phase 4: dynamic-flag validation + rate limits.
-        return response()->json([
-            'error' => 'not_implemented',
-            'message' => 'Flag submission ships in Phase 4.',
-        ], 501);
+        /** @var User $user */
+        $user = $request->user();
+
+        $validated = $request->validate([
+            'flag' => ['required', 'string', 'max:256'],
+        ]);
+
+        $result = $this->submitFlag->submit($user, $challenge, $validated['flag'], $request);
+
+        if ($result['status'] === 'rate_limited') {
+            return response()->json($result, 429);
+        }
+
+        return response()->json($result);
     }
 
     private function renderMarkdown(string $md): string

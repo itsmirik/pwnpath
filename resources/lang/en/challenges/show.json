@@ -20,13 +20,18 @@
     },
     "submit": {
         "heading": "Submit flag",
-        "placeholder": "HTP{...}",
+        "placeholder": "{example}",
         "help": "Format: {format}",
         "button": "Submit",
         "submitting": "Submitting…",
         "locked_title": "Log in to submit a flag",
         "locked_body": "Only verified accounts can submit flags.",
-        "stub": "Flag validation ships in the next phase.",
+        "solved_title": "Solved",
+        "solved_body": "You already solved this challenge. +{points} XP.",
+        "success": "Correct! +{points} XP. Streak: {streak}.",
+        "already_solved": "You already solved this challenge.",
+        "wrong": "Incorrect flag. Try again.",
+        "rate_limited": "Too many attempts. Slow down and try again later.",
         "error_generic": "Something went wrong. Try again."
     }
 }

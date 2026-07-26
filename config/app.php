@@ -107,6 +107,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Challenge Flag HMAC Secret
+    |--------------------------------------------------------------------------
+    |
+    | Used to mint per-user dynamic flags: HTP{HMAC(user_id:challenge_id)[:24]}.
+    | Keep this secret stable — rotating it invalidates all outstanding flags.
+    |
+    */
+
+    'flag_secret' => env('FLAG_SECRET'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Maintenance Mode Driver
     |--------------------------------------------------------------------------
     |

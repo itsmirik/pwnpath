@@ -111,6 +111,29 @@ class Challenge extends Model
         return $this->hasMany(ChallengeTranslation::class);
     }
 
+    /** @return HasMany<Solve, $this> */
+    public function solves(): HasMany
+    {
+        return $this->hasMany(Solve::class);
+    }
+
+    /** @return HasMany<FlagSubmission, $this> */
+    public function flagSubmissions(): HasMany
+    {
+        return $this->hasMany(FlagSubmission::class);
+    }
+
+    /** @return HasMany<ChallengeView, $this> */
+    public function views(): HasMany
+    {
+        return $this->hasMany(ChallengeView::class);
+    }
+
+    public function usesStaticFlag(): bool
+    {
+        return $this->flag_type === self::FLAG_STATIC;
+    }
+
     /**
      * @param  Builder<self>  $q
      * @return Builder<self>

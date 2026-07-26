@@ -6,6 +6,7 @@ use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
 use App\Models\User;
 use App\Rules\HCaptcha;
+use App\Services\SignupIpLimiter;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
@@ -16,6 +17,10 @@ class CreateNewUser implements CreatesNewUsers
     private const DEFAULT_AVATAR_COLORS = [
         '#22d3ee', '#a855f7', '#f97316', '#f43f5e', '#22c55e', '#eab308', '#0ea5e9', '#ec4899',
     ];
+
+    public function __construct(
+        private readonly SignupIpLimiter $signupIpLimiter,
+    ) {}
 
     /**
      * @param  array<string, string>  $input
@@ -36,6 +41,9 @@ class CreateNewUser implements CreatesNewUsers
             'h-captcha-response.required' => __('validation.captcha.missing'),
         ])->validate();
 
+        $ip = request()->ip();
+        $this->signupIpLimiter->assertAllowed($ip);
+
         return User::create([
             'username' => strtolower($input['username']),
             'email' => $input['email'],
@@ -43,6 +51,7 @@ class CreateNewUser implements CreatesNewUsers
             'display_name' => $input['display_name'],
             'locale' => $input['locale'],
             'avatar_color' => self::DEFAULT_AVATAR_COLORS[array_rand(self::DEFAULT_AVATAR_COLORS)],
+            'signup_ip' => $ip,
         ]);
     }
 }

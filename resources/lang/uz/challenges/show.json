@@ -20,13 +20,18 @@
     },
     "submit": {
         "heading": "Bayroqni yuborish",
-        "placeholder": "HTP{...}",
+        "placeholder": "{example}",
         "help": "Format: {format}",
         "button": "Yuborish",
         "submitting": "Yuborilmoqda…",
         "locked_title": "Bayroq yuborish uchun kiring",
         "locked_body": "Faqat tasdiqlangan foydalanuvchilar bayroq yuborishi mumkin.",
-        "stub": "Bayroq tekshiruvi keyingi bosqichda ishga tushadi.",
+        "solved_title": "Yechilgan",
+        "solved_body": "Siz bu masalani allaqachon yechgansiz. +{points} XP.",
+        "success": "Toʻgʻri! +{points} XP. Seriya: {streak}.",
+        "already_solved": "Siz bu masalani allaqachon yechgansiz.",
+        "wrong": "Notoʻgʻri bayroq. Qayta urinib koʻring.",
+        "rate_limited": "Juda koʻp urinish. Keyinroq qayta urinib koʻring.",
         "error_generic": "Xatolik yuz berdi. Qayta urinib koʻring."
     }
 }

@@ -16,6 +16,7 @@ createInertiaApp({
             case name === 'Welcome':
                 return PublicLayout;
             case name.startsWith('profiles/'):
+            case name.startsWith('challenges/'):
                 return PublicLayout;
             case name.startsWith('auth/'):
                 return AuthLayout;

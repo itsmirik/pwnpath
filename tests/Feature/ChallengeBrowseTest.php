@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Challenge;
 use App\Models\ChallengeFile;
 use App\Models\ChallengeTranslation;
+use App\Models\Solve;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
@@ -150,24 +151,34 @@ class ChallengeBrowseTest extends TestCase
         $this->get('/challenges/not-live')->assertNotFound();
     }
 
-    public function test_submit_stub_returns_501_for_verified_user(): void
-    {
-        $this->makeChallenge('web-1', 'web', 'easy', 100, ['en' => ['title' => 'Stub']]);
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)
-            ->postJson('/challenges/web-1/submit', ['flag' => 'HTP{deadbeef}']);
-
-        $response->assertStatus(501)
-            ->assertJson(['error' => 'not_implemented']);
-    }
-
     public function test_submit_requires_auth(): void
     {
         $this->makeChallenge('web-1', 'web', 'easy', 100, ['en' => ['title' => 'Guard']]);
 
         $this->postJson('/challenges/web-1/submit', ['flag' => 'HTP{}'])
             ->assertStatus(401);
+    }
+
+    public function test_index_filters_solved_for_auth_user(): void
+    {
+        $user = User::factory()->create();
+        $solved = $this->makeChallenge('solved-1', 'web', 'easy', 100, ['en' => ['title' => 'Solved']]);
+        $this->makeChallenge('open-1', 'web', 'easy', 100, ['en' => ['title' => 'Open']]);
+
+        Solve::factory()->create([
+            'user_id' => $user->id,
+            'challenge_id' => $solved->id,
+            'points_awarded' => 100,
+        ]);
+
+        $response = $this->actingAs($user)->get('/challenges?solved=solved');
+
+        $response->assertOk();
+        $response->assertInertia(fn (Assert $page) => $page
+            ->has('challenges.data', 1)
+            ->where('challenges.data.0.slug', 'solved-1')
+            ->where('challenges.data.0.is_solved', true),
+        );
     }
 
     public function test_signed_file_download_streams_local_disk(): void
