@@ -3,5 +3,16 @@
     "streak": "Ketma-ket kun",
     "joined": "Qoʻshilgan",
     "no_bio": "Bio yoʻq.",
-    "country": "Davlat"
+    "country": "Davlat",
+    "rank": "Daraja",
+    "global_rank": "Reytingdagi oʻrin",
+    "to_next_rank": "{tier}gacha {xp} XP",
+    "max_rank": "Eng yuqori daraja",
+    "solved": "yechilgan",
+    "categories": "Kategoriya boʻyicha yechilgan",
+    "badges": "Nishonlar",
+    "badges_progress": "{earned} / {total}",
+    "locked": "Yopiq",
+    "timeline": "Soʻnggi faollik",
+    "timeline_empty": "Hozircha yechilgan topshiriqlar yoʻq."
 }

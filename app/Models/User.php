@@ -6,7 +6,9 @@ use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -62,6 +64,20 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     public const LOCALES = ['ru', 'uz', 'en'];
 
     /**
+     * Rank tiers keyed by minimum XP (plan §5 Scoring). Ordered ascending;
+     * a user's rank is the highest tier whose floor they have reached.
+     *
+     * @var array<int, array{tier: string, min: int}>
+     */
+    public const RANKS = [
+        ['tier' => 'bronze', 'min' => 0],
+        ['tier' => 'silver', 'min' => 500],
+        ['tier' => 'gold', 'min' => 2000],
+        ['tier' => 'platinum', 'min' => 5000],
+        ['tier' => 'diamond', 'min' => 10000],
+    ];
+
+    /**
      * @return array<string, string>
      */
     protected function casts(): array
@@ -100,8 +116,93 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
         return $this->hasMany(ChallengeView::class);
     }
 
+    /** @return HasMany<UserBadge, $this> */
+    public function userBadges(): HasMany
+    {
+        return $this->hasMany(UserBadge::class);
+    }
+
+    /** @return HasMany<Writeup, $this> */
+    public function writeups(): HasMany
+    {
+        return $this->hasMany(Writeup::class);
+    }
+
+    /** @return HasMany<Comment, $this> */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /** @return BelongsToMany<Badge, $this> */
+    public function badges(): BelongsToMany
+    {
+        return $this->belongsToMany(Badge::class, 'user_badges')
+            ->withPivot('awarded_at')
+            ->orderBy('badges.sort_order');
+    }
+
     public function hasSolved(Challenge $challenge): bool
     {
         return $this->solves()->where('challenge_id', $challenge->id)->exists();
+    }
+
+    /**
+     * Rank tier slug derived from total XP (plan §5). Computed, never stored.
+     *
+     * @return Attribute<string, never>
+     */
+    protected function rank(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => self::rankForXp($this->xp_total),
+        );
+    }
+
+    public static function rankForXp(int $xp): string
+    {
+        $tier = self::RANKS[0]['tier'];
+
+        foreach (self::RANKS as $rank) {
+            if ($xp >= $rank['min']) {
+                $tier = $rank['tier'];
+            }
+        }
+
+        return $tier;
+    }
+
+    /**
+     * Current rank plus progress toward the next tier, for the profile UI.
+     *
+     * @return array{tier: string, next_tier: string|null, floor: int, next: int|null, xp: int, progress: float}
+     */
+    public function rankProgress(): array
+    {
+        $xp = $this->xp_total;
+        $current = self::RANKS[0];
+        $next = null;
+
+        foreach (self::RANKS as $index => $rank) {
+            if ($xp >= $rank['min']) {
+                $current = $rank;
+                $next = self::RANKS[$index + 1] ?? null;
+            }
+        }
+
+        $progress = 1.0;
+        if ($next !== null) {
+            $span = $next['min'] - $current['min'];
+            $progress = $span > 0 ? ($xp - $current['min']) / $span : 0.0;
+        }
+
+        return [
+            'tier' => $current['tier'],
+            'next_tier' => $next['tier'] ?? null,
+            'floor' => $current['min'],
+            'next' => $next['min'] ?? null,
+            'xp' => $xp,
+            'progress' => round(max(0.0, min(1.0, $progress)), 4),
+        ];
     }
 }

@@ -5,7 +5,7 @@ import AppLogo from '@/components/AppLogo.vue';
 import LocaleSwitcher from '@/components/LocaleSwitcher.vue';
 import { dashboard, login, register } from '@/routes';
 
-const page = usePage<{ auth: { user: unknown } }>();
+const page = usePage<{ auth: { user: { username: string } | null } }>();
 const { t } = useI18n();
 const year = new Date().getFullYear();
 </script>
@@ -34,12 +34,21 @@ const year = new Date().getFullYear();
                     <Link href="/challenges" class="hover:text-white">
                         {{ t('common.nav.challenges') }}
                     </Link>
+                    <Link href="/leaderboard" class="hover:text-white">
+                        {{ t('common.nav.leaderboard') }}
+                    </Link>
                 </nav>
 
                 <div class="flex items-center gap-2">
                     <LocaleSwitcher />
 
                     <template v-if="page.props.auth?.user">
+                        <Link
+                            :href="`/u/${page.props.auth.user.username}`"
+                            class="hidden rounded-md px-3 py-1.5 text-sm text-slate-300 hover:text-white sm:inline-block"
+                        >
+                            {{ t('common.nav.profile') }}
+                        </Link>
                         <Link
                             :href="dashboard()"
                             class="rounded-md border border-slate-700 px-3 py-1.5 text-sm text-slate-200 hover:border-slate-500 hover:text-white"

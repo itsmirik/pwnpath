@@ -79,18 +79,19 @@ function resetFilters(): void {
 }
 
 const difficultyColor: Record<Difficulty, string> = {
-    easy: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300',
-    medium: 'border-amber-500/30 bg-amber-500/10 text-amber-300',
-    hard: 'border-rose-500/30 bg-rose-500/10 text-rose-300',
+    easy: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+    medium: 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300',
+    hard: 'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300',
 };
 
 const categoryColor: Record<Category, string> = {
-    web: 'border-cyan-500/30 bg-cyan-500/10 text-cyan-300',
-    crypto: 'border-indigo-500/30 bg-indigo-500/10 text-indigo-300',
-    forensics: 'border-violet-500/30 bg-violet-500/10 text-violet-300',
-    osint: 'border-lime-500/30 bg-lime-500/10 text-lime-300',
-    llm: 'border-pink-500/30 bg-pink-500/10 text-pink-300',
-    misc: 'border-slate-500/30 bg-slate-500/10 text-slate-300',
+    web: 'border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300',
+    crypto: 'border-indigo-500/30 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300',
+    forensics:
+        'border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-300',
+    osint: 'border-lime-500/30 bg-lime-500/10 text-lime-700 dark:text-lime-300',
+    llm: 'border-pink-500/30 bg-pink-500/10 text-pink-700 dark:text-pink-300',
+    misc: 'border-slate-500/30 bg-slate-500/10 text-muted-foreground',
 };
 
 const isEmpty = computed(() => props.challenges.data.length === 0);
@@ -99,28 +100,28 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
 <template>
     <Head :title="t('challenges.browse.title')" />
 
-    <div class="mx-auto max-w-6xl px-6 py-12">
+    <div class="w-full px-6 py-8">
         <header class="mb-8">
             <h1
-                class="text-3xl font-bold tracking-tight text-white sm:text-4xl"
+                class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
             >
                 {{ t('challenges.browse.title') }}
             </h1>
-            <p class="mt-2 max-w-2xl text-slate-400">
+            <p class="mt-2 max-w-2xl text-muted-foreground">
                 {{ t('challenges.browse.subtitle') }}
             </p>
         </header>
 
         <div
-            class="mb-8 grid gap-4 rounded-lg border border-slate-800 bg-slate-900/40 p-4 sm:grid-cols-2 lg:grid-cols-5"
+            class="mb-8 grid gap-4 rounded-lg border border-border bg-card p-4 sm:grid-cols-2 lg:grid-cols-5"
         >
             <label
-                class="flex flex-col gap-1 text-xs tracking-wider text-slate-500 uppercase"
+                class="flex flex-col gap-1 text-xs tracking-wider text-muted-foreground uppercase"
             >
                 {{ t('challenges.browse.filters.category') }}
                 <select
                     v-model="state.category"
-                    class="rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 focus:border-cyan-400 focus:outline-none"
+                    class="rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-cyan-400 focus:outline-none"
                 >
                     <option value="">
                         {{ t('challenges.browse.filters.any') }}
@@ -136,12 +137,12 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
             </label>
 
             <label
-                class="flex flex-col gap-1 text-xs tracking-wider text-slate-500 uppercase"
+                class="flex flex-col gap-1 text-xs tracking-wider text-muted-foreground uppercase"
             >
                 {{ t('challenges.browse.filters.difficulty') }}
                 <select
                     v-model="state.difficulty"
-                    class="rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 focus:border-cyan-400 focus:outline-none"
+                    class="rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-cyan-400 focus:outline-none"
                 >
                     <option value="">
                         {{ t('challenges.browse.filters.any') }}
@@ -157,12 +158,12 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
             </label>
 
             <label
-                class="flex flex-col gap-1 text-xs tracking-wider text-slate-500 uppercase"
+                class="flex flex-col gap-1 text-xs tracking-wider text-muted-foreground uppercase"
             >
                 {{ t('challenges.browse.filters.solved') }}
                 <select
                     v-model="state.solved"
-                    class="rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 focus:border-cyan-400 focus:outline-none"
+                    class="rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-cyan-400 focus:outline-none"
                 >
                     <option
                         v-for="opt in options.solved"
@@ -175,12 +176,12 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
             </label>
 
             <label
-                class="flex flex-col gap-1 text-xs tracking-wider text-slate-500 uppercase"
+                class="flex flex-col gap-1 text-xs tracking-wider text-muted-foreground uppercase"
             >
                 {{ t('challenges.browse.filters.sort') }}
                 <select
                     v-model="state.sort"
-                    class="rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 focus:border-cyan-400 focus:outline-none"
+                    class="rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-cyan-400 focus:outline-none"
                 >
                     <option v-for="opt in options.sort" :key="opt" :value="opt">
                         {{ t(`challenges.browse.sort.${opt}`) }}
@@ -191,7 +192,7 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
             <div class="flex items-end">
                 <button
                     type="button"
-                    class="w-full rounded-md border border-slate-700 px-3 py-2 text-sm text-slate-200 hover:border-slate-500 hover:text-white"
+                    class="w-full rounded-md border border-border px-3 py-2 text-sm text-foreground hover:border-foreground/30 hover:text-foreground"
                     @click="resetFilters"
                 >
                     {{ t('challenges.browse.filters.clear') }}
@@ -201,12 +202,12 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
 
         <div
             v-if="isEmpty"
-            class="rounded-lg border border-slate-800 bg-slate-900/40 p-10 text-center"
+            class="rounded-lg border border-border bg-card p-10 text-center"
         >
-            <p class="text-lg font-medium text-white">
+            <p class="text-lg font-medium text-foreground">
                 {{ t('challenges.browse.empty') }}
             </p>
-            <p class="mt-2 text-sm text-slate-400">
+            <p class="mt-2 text-sm text-muted-foreground">
                 {{ t('challenges.browse.empty_hint') }}
             </p>
         </div>
@@ -215,7 +216,7 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
             <li
                 v-for="c in challenges.data"
                 :key="c.slug"
-                class="group rounded-lg border border-slate-800 bg-slate-900/40 p-5 transition hover:border-cyan-400/50 hover:bg-slate-900/70"
+                class="group rounded-lg border border-border bg-card p-5 transition hover:border-cyan-400/50 hover:bg-accent"
             >
                 <Link :href="c.url" class="block">
                     <div class="flex items-center gap-2">
@@ -237,12 +238,12 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
                         </span>
                     </div>
                     <h2
-                        class="mt-3 text-lg font-semibold text-white group-hover:text-cyan-300"
+                        class="mt-3 text-lg font-semibold text-foreground group-hover:text-cyan-600 dark:group-hover:text-cyan-600 dark:hover:text-cyan-300"
                     >
                         {{ c.title }}
                     </h2>
                     <div
-                        class="mt-4 flex items-center justify-between text-xs text-slate-400"
+                        class="mt-4 flex items-center justify-between text-xs text-muted-foreground"
                     >
                         <span>{{
                             t('challenges.browse.card.points', {
@@ -261,13 +262,13 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
 
         <nav
             v-if="challenges.meta.last_page > 1"
-            class="mt-8 flex items-center justify-between text-sm text-slate-400"
+            class="mt-8 flex items-center justify-between text-sm text-muted-foreground"
         >
             <Link
                 v-if="challenges.links.prev"
                 :href="challenges.links.prev"
                 preserve-scroll
-                class="rounded-md border border-slate-700 px-3 py-1.5 text-slate-200 hover:border-slate-500 hover:text-white"
+                class="rounded-md border border-border px-3 py-1.5 text-foreground hover:border-foreground/30 hover:text-foreground"
             >
                 {{ t('challenges.browse.pagination.prev') }}
             </Link>
@@ -284,7 +285,7 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
                 v-if="challenges.links.next"
                 :href="challenges.links.next"
                 preserve-scroll
-                class="rounded-md border border-slate-700 px-3 py-1.5 text-slate-200 hover:border-slate-500 hover:text-white"
+                class="rounded-md border border-border px-3 py-1.5 text-foreground hover:border-foreground/30 hover:text-foreground"
             >
                 {{ t('challenges.browse.pagination.next') }}
             </Link>

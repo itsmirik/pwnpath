@@ -129,6 +129,18 @@ class Challenge extends Model
         return $this->hasMany(ChallengeView::class);
     }
 
+    /** @return HasMany<Writeup, $this> */
+    public function writeups(): HasMany
+    {
+        return $this->hasMany(Writeup::class);
+    }
+
+    /** @return HasMany<Comment, $this> */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function usesStaticFlag(): bool
     {
         return $this->flag_type === self::FLAG_STATIC;

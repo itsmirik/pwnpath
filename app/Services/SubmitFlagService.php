@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\SolveRecorded;
 use App\Models\Challenge;
 use App\Models\ChallengeView;
 use App\Models\FlagSubmission;
@@ -109,11 +110,29 @@ class SubmitFlagService
 
         $user->refresh();
 
+        // Post-commit so listeners see fully-updated XP/streak/solve counts and
+        // can safely touch external stores (Redis) outside the DB transaction.
+        $solve = Solve::query()
+            ->where('user_id', $user->id)
+            ->where('challenge_id', $challenge->id)
+            ->firstOrFail();
+
+        $event = new SolveRecorded($user, $challenge, $solve);
+        event($event);
+
         return [
             'status' => 'solved',
             'points' => $points,
             'xp_total' => $user->xp_total,
             'streak_count' => $user->streak_count,
+            'badges' => $event->awardedBadges
+                ->map(fn ($badge): array => [
+                    'slug' => $badge->slug,
+                    'name' => $badge->name(),
+                    'icon' => $badge->icon,
+                ])
+                ->values()
+                ->all(),
         ];
     }
 

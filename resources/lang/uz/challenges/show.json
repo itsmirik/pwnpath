@@ -32,6 +32,38 @@
         "already_solved": "Siz bu masalani allaqachon yechgansiz.",
         "wrong": "Notoʻgʻri bayroq. Qayta urinib koʻring.",
         "rate_limited": "Juda koʻp urinish. Keyinroq qayta urinib koʻring.",
-        "error_generic": "Xatolik yuz berdi. Qayta urinib koʻring."
+        "error_generic": "Xatolik yuz berdi. Qayta urinib koʻring.",
+        "badges_earned": "Yangi nishon!"
+    },
+    "writeups": {
+        "heading": "Raytaplar",
+        "write": "Raytap yozish",
+        "edit": "Raytapni tahrirlash",
+        "mine_status": "Sizning raytapingiz: {status}.",
+        "empty_solver": "Hozircha raytap yoʻq — yechimingizni birinchi boʻlib ulashing.",
+        "empty": "Hali eʼlon qilingan raytap yoʻq.",
+        "upvote": "Ovoz berish"
+    },
+    "comments": {
+        "heading": "Muhokama",
+        "locked_title": "Muhokama yopiq",
+        "locked_body": "Oʻqish va muhokamada qatnashish uchun masalani yeching.",
+        "placeholder": "Maslahat bering yoki savol yozing…",
+        "post": "Yuborish",
+        "posting": "Yuborilmoqda…",
+        "empty": "Hozircha izohlar yoʻq. Muhokamani boshlang.",
+        "reply": "Javob berish",
+        "reply_placeholder": "Javob yozing…",
+        "reply_post": "Javob berish",
+        "report": "Shikoyat",
+        "reported": "Yuborildi",
+        "report_submit": "Shikoyat yuborish",
+        "cancel": "Bekor qilish",
+        "reason": {
+            "spoiler": "Spoyler",
+            "spam": "Spam",
+            "abuse": "Haqorat / tazyiq",
+            "other": "Boshqa"
+        }
     }
 }

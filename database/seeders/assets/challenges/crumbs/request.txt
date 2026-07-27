@@ -1,0 +1,5 @@
+GET /dashboard HTTP/1.1
+Host: crumbs.htp.local
+Cookie: session=eyJ1aWQiOiAxMDAxLCAicm9sZSI6ICJndWVzdCIsICJub3RlIjogIkhUUHtjMDBraWVzX2FyZV9ub3Rfc2VjdXJlfSJ9
+User-Agent: Mozilla/5.0
+

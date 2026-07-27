@@ -3,5 +3,16 @@
     "streak": "Day streak",
     "joined": "Joined",
     "no_bio": "No bio yet.",
-    "country": "Country"
+    "country": "Country",
+    "rank": "Rank",
+    "global_rank": "Global rank",
+    "to_next_rank": "{xp} XP to {tier}",
+    "max_rank": "Top tier reached",
+    "solved": "solved",
+    "categories": "Solved by category",
+    "badges": "Badges",
+    "badges_progress": "{earned} / {total}",
+    "locked": "Locked",
+    "timeline": "Recent activity",
+    "timeline_empty": "No solves yet."
 }

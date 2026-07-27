@@ -23,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // SolveRecorded listeners (AwardBadges, UpdateWeeklyLeaderboard) are
+        // auto-discovered from app/Listeners by their handle() type-hint.
         $this->configureDefaults();
     }
 

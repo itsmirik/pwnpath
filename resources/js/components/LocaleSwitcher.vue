@@ -1,7 +1,16 @@
 <script setup lang="ts">
 import { router, usePage } from '@inertiajs/vue3';
+import { Languages } from '@lucide/vue';
+import type { AcceptableValue } from 'reka-ui';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import type { Locale } from '@/i18n';
 
 const page = usePage();
@@ -12,13 +21,13 @@ const currentLocale = computed<Locale>(
 );
 
 const localeOptions: { value: Locale; label: string }[] = [
-    { value: 'ru', label: 'RU' },
-    { value: 'uz', label: 'UZ' },
-    { value: 'en', label: 'EN' },
+    { value: 'en', label: 'English' },
+    { value: 'ru', label: 'Русский' },
+    { value: 'uz', label: "O'zbekcha" },
 ];
 
-function switchLocale(value: Locale) {
-    if (value === currentLocale.value) {
+function switchLocale(value: AcceptableValue) {
+    if (typeof value !== 'string' || value === currentLocale.value) {
         return;
     }
 
@@ -37,23 +46,19 @@ function switchLocale(value: Locale) {
 </script>
 
 <template>
-    <div
-        class="flex rounded-md border border-border bg-background/60 p-0.5 text-xs font-medium"
-    >
-        <button
-            v-for="opt in localeOptions"
-            :key="opt.value"
-            type="button"
-            :class="[
-                'rounded px-2 py-1 transition',
-                currentLocale === opt.value
-                    ? 'bg-foreground text-background'
-                    : 'text-muted-foreground hover:text-foreground',
-            ]"
-            :aria-pressed="currentLocale === opt.value"
-            @click="switchLocale(opt.value)"
-        >
-            {{ opt.label }}
-        </button>
-    </div>
+    <Select :model-value="currentLocale" @update:model-value="switchLocale">
+        <SelectTrigger size="sm" class="gap-1.5" aria-label="Language">
+            <Languages class="size-4 opacity-70" />
+            <SelectValue />
+        </SelectTrigger>
+        <SelectContent align="end">
+            <SelectItem
+                v-for="opt in localeOptions"
+                :key="opt.value"
+                :value="opt.value"
+            >
+                {{ opt.label }}
+            </SelectItem>
+        </SelectContent>
+    </Select>
 </template>

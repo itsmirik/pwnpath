@@ -1,0 +1,16 @@
+{
+    "title": "Raytap — {challenge}",
+    "back": "«{challenge}»ga qaytish",
+    "heading_new": "Raytap yozish",
+    "heading_edit": "Raytapni tahrirlash",
+    "subtitle": "Yondashuvingizni tushuntiring. Raytaplar eʼlon qilinishidan oldin moderator tomonidan koʻrib chiqiladi.",
+    "requeue_notice": "Tasdiqlangan raytapni tahrirlash uni qayta koʻrib chiqishga yuboradi.",
+    "mod_note": "Moderator izohi",
+    "language": "Til",
+    "body": "Raytap",
+    "placeholder": "Yechim bosqichlarini yozing…",
+    "image_hint": "Rasmlarni tashlang yoki joylashtiring (2 MB gacha)",
+    "submit": "Koʻrib chiqishga yuborish",
+    "submitting": "Yuborilmoqda…",
+    "cancel": "Bekor qilish"
+}

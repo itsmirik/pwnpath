@@ -1,0 +1,14 @@
+changeme
+123456
+root
+letmein
+password
+qwerty
+toor
+weak_hs256_secret
+admin
+jwt
+token
+hunter2
+secret
+flag

@@ -5,8 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Challenge;
 use App\Models\ChallengeFile;
 use App\Models\ChallengeView;
+use App\Models\Comment;
+use App\Models\CommentReport;
 use App\Models\Solve;
 use App\Models\User;
+use App\Models\Writeup;
+use App\Models\WriteupVote;
+use App\Services\MarkdownRenderer;
 use App\Services\SubmitFlagService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -15,10 +20,6 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
-use League\CommonMark\Environment\Environment;
-use League\CommonMark\Extension\Autolink\AutolinkExtension;
-use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
-use League\CommonMark\MarkdownConverter;
 
 class ChallengeController extends Controller
 {
@@ -28,6 +29,7 @@ class ChallengeController extends Controller
 
     public function __construct(
         private readonly SubmitFlagService $submitFlag,
+        private readonly MarkdownRenderer $markdown,
     ) {}
 
     public function index(Request $request): Response
@@ -151,7 +153,7 @@ class ChallengeController extends Controller
             'challenge' => [
                 'slug' => $challenge->slug,
                 'title' => $challenge->tr('title', $locale) ?? $challenge->slug,
-                'description_html' => $this->renderMarkdown($challenge->tr('description', $locale) ?? ''),
+                'description_html' => $this->markdown->toHtml($challenge->tr('description', $locale) ?? ''),
                 'category' => $challenge->category,
                 'difficulty' => $challenge->difficulty,
                 'points' => $challenge->points,
@@ -182,6 +184,8 @@ class ChallengeController extends Controller
                 'can_submit' => $isAuthed && ! $isSolved,
                 'submit_url' => route('challenges.submit', $challenge->slug),
             ],
+            'writeups' => $this->writeupsPayload($challenge, $user, $isSolved),
+            'comments' => $this->commentsPayload($challenge, $user, $isSolved),
         ]);
     }
 
@@ -205,16 +209,146 @@ class ChallengeController extends Controller
         return response()->json($result);
     }
 
-    private function renderMarkdown(string $md): string
+    /**
+     * Approved writeups (public to everyone) plus the current user's own
+     * writeup + submit-gate state (solvers only).
+     *
+     * @return array<string, mixed>
+     */
+    private function writeupsPayload(Challenge $challenge, ?User $user, bool $isSolved): array
     {
-        // html_input=escape drops any inline <script>/<iframe> authored content — safe against XSS.
-        $env = new Environment([
-            'html_input' => 'escape',
-            'allow_unsafe_links' => false,
-        ]);
-        $env->addExtension(new CommonMarkCoreExtension);
-        $env->addExtension(new AutolinkExtension);
+        $writeups = $challenge->writeups()
+            ->approved()
+            ->with('user')
+            ->orderByDesc('upvote_count')
+            ->orderByDesc('created_at')
+            ->get();
 
-        return (string) (new MarkdownConverter($env))->convert($md);
+        $votedIds = [];
+        if ($user !== null && $writeups->isNotEmpty()) {
+            $votedIds = WriteupVote::query()
+                ->where('user_id', $user->id)
+                ->whereIn('writeup_id', $writeups->pluck('id'))
+                ->pluck('writeup_id')
+                ->all();
+        }
+
+        $mine = $user !== null
+            ? $challenge->writeups()->where('user_id', $user->id)->first()
+            : null;
+
+        return [
+            'items' => $writeups->map(fn (Writeup $w): array => [
+                'id' => $w->id,
+                'author' => $this->authorPayload($w->user),
+                'content_html' => $this->markdown->toHtml($w->content),
+                'upvote_count' => $w->upvote_count,
+                'has_upvoted' => in_array($w->id, $votedIds, true),
+                // Solvers may vote on writeups other than their own (plan §5).
+                'can_upvote' => $isSolved && $user !== null && $w->user_id !== $user->id,
+                'upvote_url' => route('writeups.upvote', $w->id),
+                'created_at' => $w->created_at?->toIso8601String(),
+            ])->all(),
+            'can_write' => $isSolved,
+            'create_url' => route('writeups.create', $challenge->slug),
+            'mine' => $mine === null ? null : [
+                'status' => $mine->status,
+                'moderation_note' => $mine->moderation_note,
+                'updated_at' => $mine->updated_at?->toIso8601String(),
+            ],
+        ];
+    }
+
+    /**
+     * Comment thread. Gated behind solving to avoid pre-solve spoilers
+     * (plan §5: solved-only). Non-solvers get a locked marker only.
+     *
+     * @return array<string, mixed>
+     */
+    private function commentsPayload(Challenge $challenge, ?User $user, bool $isSolved): array
+    {
+        if (! $isSolved || $user === null) {
+            return [
+                'locked' => true,
+                'can_post' => false,
+                'post_url' => route('comments.store', $challenge->slug),
+                'items' => [],
+            ];
+        }
+
+        $comments = $challenge->comments()
+            ->visible()
+            ->topLevel()
+            ->with([
+                'user',
+                'replies' => fn ($q) => $q->visible()->with('user')->orderBy('created_at'),
+            ])
+            ->orderByDesc('created_at')
+            ->limit(100)
+            ->get();
+
+        $commentIds = $comments->pluck('id')
+            ->merge($comments->flatMap(fn (Comment $c) => $c->replies->pluck('id')))
+            ->all();
+
+        $reportedIds = CommentReport::query()
+            ->where('reporter_id', $user->id)
+            ->whereIn('comment_id', $commentIds)
+            ->pluck('comment_id')
+            ->all();
+
+        return [
+            'locked' => false,
+            'can_post' => true,
+            'post_url' => route('comments.store', $challenge->slug),
+            'items' => $comments->map(fn (Comment $c): array => [
+                ...$this->commentPayload($c, $user, $reportedIds),
+                'replies' => $c->replies->map(
+                    fn (Comment $r): array => $this->commentPayload($r, $user, $reportedIds),
+                )->all(),
+            ])->all(),
+        ];
+    }
+
+    /**
+     * @param  list<int>  $reportedIds
+     * @return array<string, mixed>
+     */
+    private function commentPayload(Comment $comment, User $user, array $reportedIds): array
+    {
+        $isOwn = $comment->user_id === $user->id;
+
+        return [
+            'id' => $comment->id,
+            'author' => $this->authorPayload($comment->user),
+            'content' => $comment->content,
+            'created_at' => $comment->created_at?->toIso8601String(),
+            'is_own' => $isOwn,
+            'can_report' => ! $isOwn,
+            'has_reported' => in_array($comment->id, $reportedIds, true),
+            'report_url' => route('comments.report', $comment->id),
+        ];
+    }
+
+    /**
+     * @return array<string, string|null>
+     */
+    private function authorPayload(?User $user): array
+    {
+        if ($user === null) {
+            return [
+                'username' => null,
+                'display_name' => null,
+                'avatar_color' => null,
+                'url' => null,
+            ];
+        }
+
+        return [
+            'username' => $user->username,
+            'display_name' => $user->display_name,
+            'avatar_color' => $user->avatar_color,
+            'url' => route('profile.show', $user->username),
+        ];
     }
 }

@@ -1,0 +1,18 @@
+{
+    "title": "Leaderboard",
+    "subtitle": "Top hackers on HackTepa.",
+    "tabs": {
+        "global": "All-time",
+        "weekly": "This week",
+        "category": "By category"
+    },
+    "columns": {
+        "rank": "#",
+        "player": "Player",
+        "xp": "XP",
+        "solves": "Solves"
+    },
+    "your_position": "Your position",
+    "you": "you",
+    "empty": "No ranked players yet. Be the first to solve a challenge!"
+}

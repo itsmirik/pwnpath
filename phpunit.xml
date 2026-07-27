@@ -33,5 +33,6 @@
         <env name="TELESCOPE_ENABLED" value="false"/>
         <env name="NIGHTWATCH_ENABLED" value="false"/>
         <env name="FLAG_SECRET" value="testing-flag-secret-do-not-use-in-prod"/>
+        <env name="LEADERBOARD_WEEKLY_DRIVER" value="database"/>
     </php>
 </phpunit>

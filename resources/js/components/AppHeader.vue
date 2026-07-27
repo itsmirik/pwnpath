@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
-import { Flag, LayoutGrid, Menu, Search } from '@lucide/vue';
+import { Flag, LayoutGrid, Menu, Trophy } from '@lucide/vue';
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import AppLogo from '@/components/AppLogo.vue';
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import Breadcrumbs from '@/components/Breadcrumbs.vue';
+import LocaleSwitcher from '@/components/LocaleSwitcher.vue';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -28,7 +30,7 @@ import {
 import UserMenuContent from '@/components/UserMenuContent.vue';
 import { useCurrentUrl } from '@/composables/useCurrentUrl';
 import { getInitials } from '@/composables/useInitials';
-import { dashboard } from '@/routes';
+import { dashboard, login, register } from '@/routes';
 import challenges from '@/routes/challenges';
 import type { BreadcrumbItem, NavItem } from '@/types';
 
@@ -41,24 +43,40 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const page = usePage();
+const { t } = useI18n();
 const auth = computed(() => page.props.auth);
+const isAuthenticated = computed(() => Boolean(auth.value?.user));
 const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
 
 const activeItemStyles =
     'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
-    },
-    {
-        title: 'Challenges',
-        href: challenges.index(),
-        icon: Flag,
-    },
-];
+const mainNavItems = computed<NavItem[]>(() => {
+    const items: NavItem[] = [];
+
+    if (isAuthenticated.value) {
+        items.push({
+            title: t('common.nav.dashboard'),
+            href: dashboard(),
+            icon: LayoutGrid,
+        });
+    }
+
+    items.push(
+        {
+            title: t('common.nav.challenges'),
+            href: challenges.index(),
+            icon: Flag,
+        },
+        {
+            title: t('common.nav.leaderboard'),
+            href: '/leaderboard',
+            icon: Trophy,
+        },
+    );
+
+    return items;
+});
 </script>
 
 <template>
@@ -115,7 +133,10 @@ const mainNavItems: NavItem[] = [
                     </Sheet>
                 </div>
 
-                <Link :href="dashboard()" class="flex items-center gap-x-2">
+                <Link
+                    :href="isAuthenticated ? dashboard() : '/'"
+                    class="flex items-center gap-x-2"
+                >
                     <AppLogo />
                 </Link>
 
@@ -158,19 +179,9 @@ const mainNavItems: NavItem[] = [
                 </div>
 
                 <div class="ml-auto flex items-center space-x-2">
-                    <div class="relative flex items-center space-x-1">
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            class="group h-9 w-9 cursor-pointer"
-                        >
-                            <Search
-                                class="size-5 opacity-80 group-hover:opacity-100"
-                            />
-                        </Button>
-                    </div>
+                    <LocaleSwitcher />
 
-                    <DropdownMenu>
+                    <DropdownMenu v-if="isAuthenticated">
                         <DropdownMenuTrigger :as-child="true">
                             <Button
                                 variant="ghost"
@@ -199,6 +210,19 @@ const mainNavItems: NavItem[] = [
                             <UserMenuContent :user="auth.user" />
                         </DropdownMenuContent>
                     </DropdownMenu>
+
+                    <template v-else>
+                        <Button variant="ghost" size="sm" :as-child="true">
+                            <Link :href="login()">
+                                {{ t('common.nav.login') }}
+                            </Link>
+                        </Button>
+                        <Button size="sm" :as-child="true">
+                            <Link :href="register()">
+                                {{ t('common.nav.signup') }}
+                            </Link>
+                        </Button>
+                    </template>
                 </div>
             </div>
         </div>

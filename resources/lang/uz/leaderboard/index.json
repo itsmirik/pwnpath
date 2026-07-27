@@ -1,0 +1,18 @@
+{
+    "title": "Reyting",
+    "subtitle": "HackTepa'ning eng zoʻr hakerlari.",
+    "tabs": {
+        "global": "Butun davr",
+        "weekly": "Shu hafta",
+        "category": "Kategoriya boʻyicha"
+    },
+    "columns": {
+        "rank": "#",
+        "player": "Oʻyinchi",
+        "xp": "XP",
+        "solves": "Yechilgan"
+    },
+    "your_position": "Sizning oʻrningiz",
+    "you": "siz",
+    "empty": "Hozircha reytingda oʻyinchilar yoʻq. Birinchi boʻlib topshiriqni yeching!"
+}

@@ -1,0 +1,16 @@
+{
+    "title": "Writeup — {challenge}",
+    "back": "Back to {challenge}",
+    "heading_new": "Write a writeup",
+    "heading_edit": "Edit your writeup",
+    "subtitle": "Explain your approach. Writeups are reviewed by a moderator before they go public.",
+    "requeue_notice": "Editing an approved writeup sends it back to the review queue.",
+    "mod_note": "Moderator note",
+    "language": "Language",
+    "body": "Writeup",
+    "placeholder": "Walk through your solution…",
+    "image_hint": "Drop or paste images (max 2 MB)",
+    "submit": "Submit for review",
+    "submitting": "Submitting…",
+    "cancel": "Cancel"
+}

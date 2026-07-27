@@ -32,6 +32,38 @@
         "already_solved": "You already solved this challenge.",
         "wrong": "Incorrect flag. Try again.",
         "rate_limited": "Too many attempts. Slow down and try again later.",
-        "error_generic": "Something went wrong. Try again."
+        "error_generic": "Something went wrong. Try again.",
+        "badges_earned": "New badge unlocked!"
+    },
+    "writeups": {
+        "heading": "Writeups",
+        "write": "Write a writeup",
+        "edit": "Edit your writeup",
+        "mine_status": "Your writeup is {status}.",
+        "empty_solver": "No writeups yet — be the first to share your solution.",
+        "empty": "No writeups published yet.",
+        "upvote": "Upvote"
+    },
+    "comments": {
+        "heading": "Discussion",
+        "locked_title": "Discussion locked",
+        "locked_body": "Solve this challenge to read and join the discussion.",
+        "placeholder": "Share a tip or ask a question…",
+        "post": "Post",
+        "posting": "Posting…",
+        "empty": "No comments yet. Start the discussion.",
+        "reply": "Reply",
+        "reply_placeholder": "Write a reply…",
+        "reply_post": "Reply",
+        "report": "Report",
+        "reported": "Reported",
+        "report_submit": "Submit report",
+        "cancel": "Cancel",
+        "reason": {
+            "spoiler": "Spoiler",
+            "spam": "Spam",
+            "abuse": "Abuse / harassment",
+            "other": "Other"
+        }
     }
 }

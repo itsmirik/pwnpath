@@ -3,5 +3,16 @@
     "streak": "Дней подряд",
     "joined": "С нами",
     "no_bio": "Пока без описания.",
-    "country": "Страна"
+    "country": "Страна",
+    "rank": "Ранг",
+    "global_rank": "Место в рейтинге",
+    "to_next_rank": "{xp} XP до {tier}",
+    "max_rank": "Максимальный ранг",
+    "solved": "решено",
+    "categories": "Решено по категориям",
+    "badges": "Значки",
+    "badges_progress": "{earned} / {total}",
+    "locked": "Закрыто",
+    "timeline": "Недавняя активность",
+    "timeline_empty": "Пока нет решённых задач."
 }
