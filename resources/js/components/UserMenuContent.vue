@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link, router } from '@inertiajs/vue3';
-import { LogOut, Settings } from '@lucide/vue';
+import { LogOut, Settings, Shield } from '@lucide/vue';
+import { computed } from 'vue';
 import {
     DropdownMenuGroup,
     DropdownMenuItem,
@@ -20,7 +21,11 @@ const handleLogout = () => {
     router.flushAll();
 };
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const isStaff = computed(() =>
+    ['author', 'moderator', 'admin'].includes(props.user.role),
+);
 </script>
 
 <template>
@@ -38,6 +43,17 @@ defineProps<Props>();
             </Link>
         </DropdownMenuItem>
     </DropdownMenuGroup>
+    <template v-if="isStaff">
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+            <DropdownMenuItem :as-child="true">
+                <Link class="block w-full cursor-pointer" href="/admin">
+                    <Shield class="mr-2 h-4 w-4" />
+                    Admin
+                </Link>
+            </DropdownMenuItem>
+        </DropdownMenuGroup>
+    </template>
     <DropdownMenuSeparator />
     <DropdownMenuItem :as-child="true">
         <Link

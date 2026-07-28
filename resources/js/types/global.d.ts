@@ -21,6 +21,15 @@ declare module '@inertiajs/core' {
             sidebarOpen: boolean;
             locale: string;
             hcaptcha: { sitekey: string | null };
+            admin: {
+                can: {
+                    author: boolean;
+                    review: boolean;
+                    moderate: boolean;
+                    manage_users: boolean;
+                    view_audit: boolean;
+                };
+            } | null;
             [key: string]: unknown;
         };
     }

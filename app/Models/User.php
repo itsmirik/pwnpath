@@ -29,6 +29,9 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property string|null $country_code
  * @property string $locale
  * @property string $role
+ * @property string $status
+ * @property string|null $ban_reason
+ * @property Carbon|null $banned_at
  * @property int $streak_count
  * @property int $streak_freeze_available
  * @property Carbon|null $last_solve_date
@@ -61,6 +64,20 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
 
     public const ROLES = ['user', 'moderator', 'author', 'admin'];
 
+    public const ROLE_USER = 'user';
+
+    public const ROLE_MODERATOR = 'moderator';
+
+    public const ROLE_AUTHOR = 'author';
+
+    public const ROLE_ADMIN = 'admin';
+
+    public const STATUS_ACTIVE = 'active';
+
+    public const STATUS_SUSPENDED = 'suspended';
+
+    public const STATUSES = [self::STATUS_ACTIVE, self::STATUS_SUSPENDED];
+
     public const LOCALES = ['ru', 'uz', 'en'];
 
     /**
@@ -85,6 +102,7 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'banned_at' => 'datetime',
             'two_factor_confirmed_at' => 'datetime',
             'last_solve_date' => 'date',
             'streak_count' => 'integer',
@@ -145,6 +163,48 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     public function hasSolved(Challenge $challenge): bool
     {
         return $this->solves()->where('challenge_id', $challenge->id)->exists();
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isModerator(): bool
+    {
+        return $this->role === self::ROLE_MODERATOR;
+    }
+
+    public function isAuthor(): bool
+    {
+        return $this->role === self::ROLE_AUTHOR;
+    }
+
+    /** Any role with access to the admin area (plan §8 capability matrix). */
+    public function isStaff(): bool
+    {
+        return in_array(
+            $this->role,
+            [self::ROLE_AUTHOR, self::ROLE_MODERATOR, self::ROLE_ADMIN],
+            true,
+        );
+    }
+
+    public function isSuspended(): bool
+    {
+        return $this->status === self::STATUS_SUSPENDED;
+    }
+
+    /** Author or admin: create/edit challenge drafts + submit for review. */
+    public function canAuthorChallenges(): bool
+    {
+        return $this->isAuthor() || $this->isAdmin();
+    }
+
+    /** Moderator or admin: approve writeups, hide comments, resolve reports. */
+    public function canModerateContent(): bool
+    {
+        return $this->isModerator() || $this->isAdmin();
     }
 
     /**

@@ -33,6 +33,7 @@ class UserFactory extends Factory
             'country_code' => 'UZ',
             'locale' => 'ru',
             'role' => 'user',
+            'status' => User::STATUS_ACTIVE,
             'remember_token' => Str::random(10),
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
@@ -53,6 +54,29 @@ class UserFactory extends Factory
             'two_factor_secret' => encrypt('secret'),
             'two_factor_recovery_codes' => encrypt(json_encode(['recovery-code-1'])),
             'two_factor_confirmed_at' => now(),
+        ]);
+    }
+
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => ['role' => User::ROLE_ADMIN]);
+    }
+
+    public function moderator(): static
+    {
+        return $this->state(fn (array $attributes) => ['role' => User::ROLE_MODERATOR]);
+    }
+
+    public function author(): static
+    {
+        return $this->state(fn (array $attributes) => ['role' => User::ROLE_AUTHOR]);
+    }
+
+    public function suspended(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => User::STATUS_SUSPENDED,
+            'banned_at' => now(),
         ]);
     }
 }
