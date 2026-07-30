@@ -25,6 +25,7 @@ class ProfileUpdateTest extends TestCase
 
         $response = $this
             ->actingAs($user)
+            ->withSession(['auth.password_confirmed_at' => now()->timestamp])
             ->patch(route('profile.update'), [
                 'display_name' => 'New Name',
                 'email' => 'new@example.com',
@@ -55,6 +56,7 @@ class ProfileUpdateTest extends TestCase
 
         $response = $this
             ->actingAs($user)
+            ->withSession(['auth.password_confirmed_at' => now()->timestamp])
             ->patch(route('profile.update'), [
                 'display_name' => $user->display_name,
                 'email' => $user->email,
@@ -69,6 +71,28 @@ class ProfileUpdateTest extends TestCase
             ->assertRedirect(route('profile.edit'));
 
         $this->assertNotNull($user->refresh()->email_verified_at);
+    }
+
+    public function test_profile_update_requires_recent_password_confirmation(): void
+    {
+        $user = User::factory()->create(['email' => 'old@example.com']);
+
+        $response = $this
+            ->actingAs($user)
+            ->patch(route('profile.update'), [
+                'display_name' => 'Hijacked',
+                'email' => 'attacker@example.com',
+                'bio' => null,
+                'avatar_color' => $user->avatar_color,
+                'country_code' => $user->country_code,
+                'locale' => $user->locale,
+            ]);
+
+        // Without a recent password confirmation the change is bounced to the
+        // confirm-password screen and nothing is written — blocks a hijacked
+        // session from silently swapping the account email.
+        $response->assertRedirect(route('password.confirm'));
+        $this->assertSame('old@example.com', $user->refresh()->email);
     }
 
     public function test_user_can_delete_their_account(): void

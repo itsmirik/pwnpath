@@ -27,7 +27,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $this->userPayload($request->user()),
             ],
             'locale' => app()->getLocale(),
             'hcaptcha' => [
@@ -60,6 +60,33 @@ class HandleInertiaRequests extends Middleware
                 'manage_users' => $user->isAdmin(),
                 'view_audit' => $user->isAdmin(),
             ],
+        ];
+    }
+
+    /**
+     * Only the current user's fields the client actually reads. Sharing the raw
+     * model would leak columns like signup_ip / ban_reason / status / streak into
+     * every page's props (visible in the page source). Guests get null.
+     *
+     * @return array<string, mixed>|null
+     */
+    private function userPayload(?User $user): ?array
+    {
+        if (! $user instanceof User) {
+            return null;
+        }
+
+        return [
+            'id' => $user->id,
+            'username' => $user->username,
+            'display_name' => $user->display_name,
+            'email' => $user->email,
+            'email_verified_at' => $user->email_verified_at,
+            'avatar_color' => $user->avatar_color,
+            'role' => $user->role,
+            'locale' => $user->locale,
+            'country_code' => $user->country_code,
+            'bio' => $user->bio,
         ];
     }
 }

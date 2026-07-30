@@ -28,10 +28,21 @@ class WriteupImageController extends Controller
             ],
         ]);
 
-        $path = $request->file('image')->storePublicly(
-            (string) config('writeups.image_path'),
-            $disk,
-        );
+        // Force a safe, whitelisted image content-type on the stored object so it
+        // can never be sniffed/served as HTML (stored-XSS via a polyglot upload).
+        // Derived from the sniffed extension, not the client filename.
+        $file = $request->file('image');
+        $contentType = match (strtolower((string) $file->extension())) {
+            'png' => 'image/png',
+            'webp' => 'image/webp',
+            default => 'image/jpeg',
+        };
+
+        $path = $file->storePublicly((string) config('writeups.image_path'), [
+            'disk' => $disk,
+            'ContentType' => $contentType,
+            'CacheControl' => 'public, max-age=31536000, immutable',
+        ]);
 
         abort_if($path === false, 500);
 

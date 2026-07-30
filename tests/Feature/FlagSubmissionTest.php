@@ -10,6 +10,7 @@ use App\Models\LeakedFlag;
 use App\Models\Solve;
 use App\Models\User;
 use App\Services\FlagGenerator;
+use App\Services\SubmitFlagService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -179,6 +180,26 @@ class FlagSubmissionTest extends TestCase
             ]);
 
         $response->assertStatus(429)->assertJson(['status' => 'rate_limited']);
+    }
+
+    public function test_burst_rate_limit_trips_on_rapid_submits(): void
+    {
+        $user = User::factory()->create();
+        $challenge = $this->publishedChallenge();
+
+        // Rapid wrong submits up to the burst ceiling are accepted...
+        for ($i = 0; $i < SubmitFlagService::BURST_LIMIT; $i++) {
+            $this->actingAs($user)
+                ->postJson("/challenges/{$challenge->slug}/submit", ['flag' => "HTP{burst_probe_{$i}}"])
+                ->assertOk()
+                ->assertJson(['status' => 'wrong']);
+        }
+
+        // ...the next one within the short window is throttled.
+        $this->actingAs($user)
+            ->postJson("/challenges/{$challenge->slug}/submit", ['flag' => 'HTP{burst_over}'])
+            ->assertStatus(429)
+            ->assertJson(['status' => 'rate_limited']);
     }
 
     public function test_other_users_dynamic_flag_is_rejected(): void

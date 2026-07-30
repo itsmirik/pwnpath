@@ -53,7 +53,9 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
     'avatar_color',
     'country_code',
     'locale',
-    'role',
+    // 'role' is deliberately NOT fillable — a privilege-escalation guard. It is
+    // set explicitly via forceFill() in Admin\UserController::updateRole so no
+    // request payload can ever mass-assign it. New users get the DB default.
     'signup_ip',
 ])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]

@@ -9,7 +9,13 @@ Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', '/settings/profile');
 
     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('settings/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // Editing the profile (email especially) requires a recent password confirm,
+    // so a hijacked session can't silently change the account email. Confirmation
+    // is cached for auth.password_timeout (3h), so it isn't prompted every edit.
+    Route::patch('settings/profile', [ProfileController::class, 'update'])
+        ->middleware(RequirePassword::class)
+        ->name('profile.update');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

@@ -120,7 +120,8 @@ class UserController extends Controller
         }
 
         $from = $user->role;
-        $user->update(['role' => $validated['role']]);
+        // forceFill: 'role' is intentionally not mass-assignable (see User model).
+        $user->forceFill(['role' => $validated['role']])->save();
 
         AuditLog::record(AuditLog::ACTION_USER_ROLE_CHANGE, $actor, $user, [
             'from' => $from,

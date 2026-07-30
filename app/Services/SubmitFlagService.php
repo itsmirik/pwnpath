@@ -10,6 +10,7 @@ use App\Models\Solve;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\RateLimiter;
 
 /**
  * Flag submit pipeline (plan §10):
@@ -22,6 +23,11 @@ class SubmitFlagService
     public const GLOBAL_LIMIT = 100;
 
     public const WINDOW_HOURS = 1;
+
+    /** Short burst ceiling (Redis) — stops rapid-fire brute forcing. */
+    public const BURST_LIMIT = 15;
+
+    public const BURST_DECAY_SECONDS = 10;
 
     public function __construct(
         private readonly FlagGenerator $flags,
@@ -141,6 +147,20 @@ class SubmitFlagService
      */
     private function checkRateLimit(User $user, Challenge $challenge): ?array
     {
+        // Fast burst guard (cache/Redis) — rejects rapid-fire hammering before
+        // the hourly DB counts run, shedding load under a submit flood.
+        $burstKey = 'flag-burst:'.$user->id;
+
+        if (RateLimiter::tooManyAttempts($burstKey, self::BURST_LIMIT)) {
+            return [
+                'status' => 'rate_limited',
+                'error' => 'rate_limited',
+                'retry_after_seconds' => RateLimiter::availableIn($burstKey),
+            ];
+        }
+
+        RateLimiter::hit($burstKey, self::BURST_DECAY_SECONDS);
+
         $windowStart = now()->subHours(self::WINDOW_HOURS);
 
         $perChallenge = FlagSubmission::query()
