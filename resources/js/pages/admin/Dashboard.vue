@@ -66,13 +66,55 @@ type Tile = {
 };
 
 const tiles = computed<Tile[]>(() => [
-    { label: 'Pending writeups', value: props.stats.pending_writeups, href: '/admin/writeups', icon: FileText, accent: 'text-amber-500' },
-    { label: 'Open reports', value: props.stats.open_reports, href: '/admin/reports', icon: ShieldAlert, accent: 'text-rose-500' },
-    { label: 'Draft challenges', value: props.stats.draft_challenges, href: '/admin/challenges?status=draft', icon: FilePlus2, accent: 'text-cyan-500' },
-    { label: 'In review', value: props.stats.review_challenges, href: '/admin/challenges?status=review', icon: FileClock, accent: 'text-violet-500' },
-    { label: 'Signups this week', value: props.stats.signups_this_week, href: '/admin/users', icon: UserPlus, accent: 'text-emerald-500' },
-    { label: 'Solves this week', value: props.stats.solves_this_week, href: '/admin/challenges', icon: Zap, accent: 'text-lime-500' },
-    { label: 'Flagged accounts (7d)', value: props.stats.flagged_accounts, href: '/admin/audit?action=security.suspicious_solves', icon: AlertTriangle, accent: 'text-orange-500' },
+    {
+        label: 'Pending writeups',
+        value: props.stats.pending_writeups,
+        href: '/admin/writeups',
+        icon: FileText,
+        accent: 'text-amber-500',
+    },
+    {
+        label: 'Open reports',
+        value: props.stats.open_reports,
+        href: '/admin/reports',
+        icon: ShieldAlert,
+        accent: 'text-rose-500',
+    },
+    {
+        label: 'Draft challenges',
+        value: props.stats.draft_challenges,
+        href: '/admin/challenges?status=draft',
+        icon: FilePlus2,
+        accent: 'text-cyan-500',
+    },
+    {
+        label: 'In review',
+        value: props.stats.review_challenges,
+        href: '/admin/challenges?status=review',
+        icon: FileClock,
+        accent: 'text-violet-500',
+    },
+    {
+        label: 'Signups this week',
+        value: props.stats.signups_this_week,
+        href: '/admin/users',
+        icon: UserPlus,
+        accent: 'text-emerald-500',
+    },
+    {
+        label: 'Solves this week',
+        value: props.stats.solves_this_week,
+        href: '/admin/challenges',
+        icon: Zap,
+        accent: 'text-lime-500',
+    },
+    {
+        label: 'Flagged accounts (7d)',
+        value: props.stats.flagged_accounts,
+        href: '/admin/audit?action=security.suspicious_solves',
+        icon: AlertTriangle,
+        accent: 'text-orange-500',
+    },
 ]);
 
 const actionLabels: Record<string, string> = {
@@ -129,7 +171,10 @@ function formatTime(iso: string | null): string {
                 class="inline-flex items-center gap-2 rounded-md border border-border bg-card px-4 py-2 text-sm font-medium transition hover:border-cyan-400/50 hover:text-cyan-500 disabled:opacity-60"
                 @click="runSync"
             >
-                <RefreshCw class="h-4 w-4" :class="syncing ? 'animate-spin' : ''" />
+                <RefreshCw
+                    class="h-4 w-4"
+                    :class="syncing ? 'animate-spin' : ''"
+                />
                 {{ syncing ? 'Syncing…' : 'Sync from repo' }}
             </button>
         </header>
@@ -142,10 +187,16 @@ function formatTime(iso: string | null): string {
                 class="group rounded-lg border border-border bg-card p-4 transition hover:border-cyan-400/40 hover:bg-accent"
             >
                 <div class="flex items-center justify-between">
-                    <span class="text-xs tracking-wide text-muted-foreground uppercase">
+                    <span
+                        class="text-xs tracking-wide text-muted-foreground uppercase"
+                    >
                         {{ tile.label }}
                     </span>
-                    <component :is="tile.icon" class="h-4 w-4" :class="tile.accent" />
+                    <component
+                        :is="tile.icon"
+                        class="h-4 w-4"
+                        :class="tile.accent"
+                    />
                 </div>
                 <div class="mt-3 text-3xl font-bold tabular-nums">
                     {{ tile.value }}
@@ -154,10 +205,14 @@ function formatTime(iso: string | null): string {
         </section>
 
         <section class="mt-10">
-            <h2 class="mb-3 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+            <h2
+                class="mb-3 text-sm font-semibold tracking-wide text-muted-foreground uppercase"
+            >
                 Recent activity
             </h2>
-            <div class="overflow-hidden rounded-lg border border-border bg-card">
+            <div
+                class="overflow-hidden rounded-lg border border-border bg-card"
+            >
                 <div
                     v-if="recent_activity.length === 0"
                     class="p-6 text-center text-sm text-muted-foreground"
@@ -171,8 +226,12 @@ function formatTime(iso: string | null): string {
                         class="flex items-center justify-between gap-4 px-4 py-3 text-sm"
                     >
                         <span>
-                            <span class="font-medium">{{ entry.actor ?? 'system' }}</span>
-                            <span class="text-muted-foreground"> {{ describe(entry) }}</span>
+                            <span class="font-medium">{{
+                                entry.actor ?? 'system'
+                            }}</span>
+                            <span class="text-muted-foreground">
+                                {{ describe(entry) }}</span
+                            >
                             <span
                                 v-if="entry.entity_type"
                                 class="text-muted-foreground"

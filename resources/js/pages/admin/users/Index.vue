@@ -105,10 +105,14 @@ const roleStyle: Record<string, string> = {
     <div class="mx-auto w-full max-w-6xl px-6 py-8">
         <header class="mb-6">
             <h1 class="text-2xl font-bold tracking-tight">Users</h1>
-            <p class="mt-1 text-sm text-muted-foreground">{{ users.meta.total }} total</p>
+            <p class="mt-1 text-sm text-muted-foreground">
+                {{ users.meta.total }} total
+            </p>
         </header>
 
-        <div class="mb-6 grid gap-3 rounded-lg border border-border bg-card p-4 sm:grid-cols-3">
+        <div
+            class="mb-6 grid gap-3 rounded-lg border border-border bg-card p-4 sm:grid-cols-3"
+        >
             <input
                 v-model="state.q"
                 type="search"
@@ -122,7 +126,9 @@ const roleStyle: Record<string, string> = {
                 @change="applyFilters"
             >
                 <option value="">All roles</option>
-                <option v-for="r in options.roles" :key="r" :value="r">{{ r }}</option>
+                <option v-for="r in options.roles" :key="r" :value="r">
+                    {{ r }}
+                </option>
             </select>
             <select
                 v-model="state.status"
@@ -130,7 +136,9 @@ const roleStyle: Record<string, string> = {
                 @change="applyFilters"
             >
                 <option value="">All statuses</option>
-                <option v-for="s in options.statuses" :key="s" :value="s">{{ s }}</option>
+                <option v-for="s in options.statuses" :key="s" :value="s">
+                    {{ s }}
+                </option>
             </select>
         </div>
 
@@ -145,13 +153,22 @@ const roleStyle: Record<string, string> = {
                         <th class="px-4 py-3 font-medium">Status</th>
                         <th class="px-4 py-3 font-medium">XP</th>
                         <th class="px-4 py-3 font-medium">Solves</th>
-                        <th class="px-4 py-3 text-right font-medium">Actions</th>
+                        <th class="px-4 py-3 text-right font-medium">
+                            Actions
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-border">
-                    <tr v-for="row in users.data" :key="row.id" class="hover:bg-accent/40">
+                    <tr
+                        v-for="row in users.data"
+                        :key="row.id"
+                        class="hover:bg-accent/40"
+                    >
                         <td class="px-4 py-3">
-                            <Link :href="row.profile_url" class="font-medium hover:text-cyan-500">
+                            <Link
+                                :href="row.profile_url"
+                                class="font-medium hover:text-cyan-500"
+                            >
                                 {{ row.display_name }}
                             </Link>
                             <div class="text-xs text-muted-foreground">
@@ -166,7 +183,11 @@ const roleStyle: Record<string, string> = {
                                 :class="roleStyle[row.role]"
                                 @change="changeRole(row, $event)"
                             >
-                                <option v-for="r in options.roles" :key="r" :value="r">
+                                <option
+                                    v-for="r in options.roles"
+                                    :key="r"
+                                    :value="r"
+                                >
                                     {{ r }}
                                 </option>
                             </select>
@@ -184,8 +205,12 @@ const roleStyle: Record<string, string> = {
                                 {{ row.status }}
                             </span>
                         </td>
-                        <td class="px-4 py-3 tabular-nums">{{ row.xp_total }}</td>
-                        <td class="px-4 py-3 tabular-nums">{{ row.solves_count }}</td>
+                        <td class="px-4 py-3 tabular-nums">
+                            {{ row.xp_total }}
+                        </td>
+                        <td class="px-4 py-3 tabular-nums">
+                            {{ row.solves_count }}
+                        </td>
                         <td class="px-4 py-3">
                             <div class="flex items-center justify-end gap-2">
                                 <template v-if="banningId === row.id">
@@ -212,7 +237,11 @@ const roleStyle: Record<string, string> = {
                                 </template>
                                 <template v-else>
                                     <button
-                                        v-if="row.status === 'active' && !row.is_self && row.role !== 'admin'"
+                                        v-if="
+                                            row.status === 'active' &&
+                                            !row.is_self &&
+                                            row.role !== 'admin'
+                                        "
                                         type="button"
                                         title="Suspend"
                                         class="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs transition hover:border-rose-400/50 hover:text-rose-500"
@@ -227,9 +256,14 @@ const roleStyle: Record<string, string> = {
                                         class="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs transition hover:border-emerald-400/50 hover:text-emerald-500"
                                         @click="unban(row)"
                                     >
-                                        <RotateCcw class="h-3.5 w-3.5" /> Reinstate
+                                        <RotateCcw class="h-3.5 w-3.5" />
+                                        Reinstate
                                     </button>
-                                    <span v-else class="text-xs text-muted-foreground">—</span>
+                                    <span
+                                        v-else
+                                        class="text-xs text-muted-foreground"
+                                        >—</span
+                                    >
                                 </template>
                             </div>
                         </td>
@@ -251,7 +285,10 @@ const roleStyle: Record<string, string> = {
                 Previous
             </Link>
             <span v-else />
-            <span>Page {{ users.meta.current_page }} of {{ users.meta.last_page }}</span>
+            <span
+                >Page {{ users.meta.current_page }} of
+                {{ users.meta.last_page }}</span
+            >
             <Link
                 v-if="users.links.next"
                 :href="users.links.next"

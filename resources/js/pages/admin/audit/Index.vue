@@ -19,7 +19,12 @@ const props = defineProps<{
         meta: { current_page: number; last_page: number; total: number };
         links: { prev: string | null; next: string | null };
     };
-    filters: { action: string | null; actor: string | null; from: string | null; to: string | null };
+    filters: {
+        action: string | null;
+        actor: string | null;
+        from: string | null;
+        to: string | null;
+    };
     options: { actions: string[] };
 }>();
 
@@ -67,17 +72,23 @@ function metaText(meta: Record<string, unknown> | null): string {
     <div class="mx-auto w-full max-w-6xl px-6 py-8">
         <header class="mb-6">
             <h1 class="text-2xl font-bold tracking-tight">Audit log</h1>
-            <p class="mt-1 text-sm text-muted-foreground">{{ logs.meta.total }} entries</p>
+            <p class="mt-1 text-sm text-muted-foreground">
+                {{ logs.meta.total }} entries
+            </p>
         </header>
 
-        <div class="mb-6 grid gap-3 rounded-lg border border-border bg-card p-4 sm:grid-cols-4">
+        <div
+            class="mb-6 grid gap-3 rounded-lg border border-border bg-card p-4 sm:grid-cols-4"
+        >
             <select
                 v-model="state.action"
                 class="rounded-md border border-border bg-background px-3 py-2 text-sm focus:border-cyan-400 focus:outline-none"
                 @change="applyFilters"
             >
                 <option value="">All actions</option>
-                <option v-for="a in options.actions" :key="a" :value="a">{{ a }}</option>
+                <option v-for="a in options.actions" :key="a" :value="a">
+                    {{ a }}
+                </option>
             </select>
             <input
                 v-model="state.actor"
@@ -86,7 +97,9 @@ function metaText(meta: Record<string, unknown> | null): string {
                 class="rounded-md border border-border bg-background px-3 py-2 text-sm focus:border-cyan-400 focus:outline-none"
                 @input="applyFilters"
             />
-            <label class="flex items-center gap-2 text-xs text-muted-foreground">
+            <label
+                class="flex items-center gap-2 text-xs text-muted-foreground"
+            >
                 From
                 <input
                     v-model="state.from"
@@ -95,7 +108,9 @@ function metaText(meta: Record<string, unknown> | null): string {
                     @change="applyFilters"
                 />
             </label>
-            <label class="flex items-center gap-2 text-xs text-muted-foreground">
+            <label
+                class="flex items-center gap-2 text-xs text-muted-foreground"
+            >
                 To
                 <input
                     v-model="state.to"
@@ -113,7 +128,10 @@ function metaText(meta: Record<string, unknown> | null): string {
             No audit entries match these filters.
         </div>
 
-        <div v-else class="overflow-x-auto rounded-lg border border-border bg-card">
+        <div
+            v-else
+            class="overflow-x-auto rounded-lg border border-border bg-card"
+        >
             <table class="w-full min-w-[820px] text-sm">
                 <thead
                     class="border-b border-border text-left text-xs tracking-wide text-muted-foreground uppercase"
@@ -128,23 +146,36 @@ function metaText(meta: Record<string, unknown> | null): string {
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-border">
-                    <tr v-for="log in logs.data" :key="log.id" class="hover:bg-accent/40">
-                        <td class="px-4 py-3 whitespace-nowrap text-muted-foreground">
+                    <tr
+                        v-for="log in logs.data"
+                        :key="log.id"
+                        class="hover:bg-accent/40"
+                    >
+                        <td
+                            class="px-4 py-3 whitespace-nowrap text-muted-foreground"
+                        >
                             {{ formatTime(log.created_at) }}
                         </td>
                         <td class="px-4 py-3">{{ log.actor ?? 'system' }}</td>
-                        <td class="px-4 py-3 font-mono text-xs">{{ log.action }}</td>
+                        <td class="px-4 py-3 font-mono text-xs">
+                            {{ log.action }}
+                        </td>
                         <td class="px-4 py-3 text-muted-foreground">
                             <span v-if="log.entity_type">
                                 {{ log.entity_type }}#{{ log.entity_id }}
                             </span>
                             <span v-else>—</span>
                         </td>
-                        <td class="px-4 py-3 font-mono text-xs text-muted-foreground">
+                        <td
+                            class="px-4 py-3 font-mono text-xs text-muted-foreground"
+                        >
                             {{ log.ip_address ?? '—' }}
                         </td>
                         <td class="max-w-xs px-4 py-3">
-                            <span class="block truncate font-mono text-xs text-muted-foreground" :title="metaText(log.meta)">
+                            <span
+                                class="block truncate font-mono text-xs text-muted-foreground"
+                                :title="metaText(log.meta)"
+                            >
                                 {{ metaText(log.meta) || '—' }}
                             </span>
                         </td>
@@ -166,7 +197,10 @@ function metaText(meta: Record<string, unknown> | null): string {
                 Previous
             </Link>
             <span v-else />
-            <span>Page {{ logs.meta.current_page }} of {{ logs.meta.last_page }}</span>
+            <span
+                >Page {{ logs.meta.current_page }} of
+                {{ logs.meta.last_page }}</span
+            >
             <Link
                 v-if="logs.links.next"
                 :href="logs.links.next"

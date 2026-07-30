@@ -13,7 +13,11 @@ type Report = {
         content: string;
         is_hidden: boolean;
         is_reply: boolean;
-        author: { username: string | null; display_name: string | null; avatar_color: string | null };
+        author: {
+            username: string | null;
+            display_name: string | null;
+            avatar_color: string | null;
+        };
         challenge: { title: string | null; url: string | null };
         hide_url: string;
     } | null;
@@ -64,7 +68,9 @@ const activeStatus = props.filters.status;
             </p>
         </header>
 
-        <div class="mb-6 flex gap-1 rounded-md border border-border bg-card p-1">
+        <div
+            class="mb-6 flex gap-1 rounded-md border border-border bg-card p-1"
+        >
             <button
                 v-for="s in options.statuses"
                 :key="s"
@@ -94,13 +100,18 @@ const activeStatus = props.filters.status;
                 :key="r.id"
                 class="rounded-lg border border-border bg-card p-5"
             >
-                <div class="mb-3 flex flex-wrap items-center justify-between gap-2 text-sm">
+                <div
+                    class="mb-3 flex flex-wrap items-center justify-between gap-2 text-sm"
+                >
                     <div class="flex items-center gap-2">
-                        <span class="rounded-full border border-rose-500/30 bg-rose-500/10 px-2 py-0.5 text-xs font-medium text-rose-600 dark:text-rose-300">
+                        <span
+                            class="rounded-full border border-rose-500/30 bg-rose-500/10 px-2 py-0.5 text-xs font-medium text-rose-600 dark:text-rose-300"
+                        >
                             {{ r.reason }}
                         </span>
                         <span class="text-muted-foreground">
-                            reported by {{ r.reporter ?? '—' }} · {{ formatDate(r.created_at) }}
+                            reported by {{ r.reporter ?? '—' }} ·
+                            {{ formatDate(r.created_at) }}
                         </span>
                     </div>
                     <span
@@ -111,12 +122,25 @@ const activeStatus = props.filters.status;
                     </span>
                 </div>
 
-                <div v-if="r.comment" class="rounded-md border border-border bg-background p-4">
-                    <div class="mb-2 flex items-center justify-between gap-2 text-xs text-muted-foreground">
+                <div
+                    v-if="r.comment"
+                    class="rounded-md border border-border bg-background p-4"
+                >
+                    <div
+                        class="mb-2 flex items-center justify-between gap-2 text-xs text-muted-foreground"
+                    >
                         <span>
-                            {{ r.comment.author.display_name ?? r.comment.author.username }}
+                            {{
+                                r.comment.author.display_name ??
+                                r.comment.author.username
+                            }}
                             <span v-if="r.comment.is_reply"> · reply</span>
-                            <span v-if="r.comment.is_hidden" class="text-rose-500"> · hidden</span>
+                            <span
+                                v-if="r.comment.is_hidden"
+                                class="text-rose-500"
+                            >
+                                · hidden</span
+                            >
                         </span>
                         <a
                             v-if="r.comment.challenge.url"
@@ -128,11 +152,18 @@ const activeStatus = props.filters.status;
                             <ExternalLink class="h-3 w-3" />
                         </a>
                     </div>
-                    <p class="text-sm whitespace-pre-wrap">{{ r.comment.content }}</p>
+                    <p class="text-sm whitespace-pre-wrap">
+                        {{ r.comment.content }}
+                    </p>
                 </div>
-                <div v-else class="text-sm text-muted-foreground">Comment was deleted.</div>
+                <div v-else class="text-sm text-muted-foreground">
+                    Comment was deleted.
+                </div>
 
-                <div v-if="r.status === 'open'" class="mt-4 flex justify-end gap-2">
+                <div
+                    v-if="r.status === 'open'"
+                    class="mt-4 flex justify-end gap-2"
+                >
                     <button
                         type="button"
                         class="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-sm transition hover:border-foreground/30"
@@ -165,7 +196,10 @@ const activeStatus = props.filters.status;
                 Previous
             </Link>
             <span v-else />
-            <span>Page {{ reports.meta.current_page }} of {{ reports.meta.last_page }}</span>
+            <span
+                >Page {{ reports.meta.current_page }} of
+                {{ reports.meta.last_page }}</span
+            >
             <Link
                 v-if="reports.links.next"
                 :href="reports.links.next"

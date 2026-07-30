@@ -7,10 +7,9 @@ import {
     LayoutDashboard,
     ScrollText,
     ShieldAlert,
-    Users
-    
+    Users,
 } from '@lucide/vue';
-import type {LucideIcon} from '@lucide/vue';
+import type { LucideIcon } from '@lucide/vue';
 import { computed } from 'vue';
 import { Toaster } from '@/components/ui/sonner';
 
@@ -27,12 +26,42 @@ const can = computed(() => page.props.admin?.can);
 
 const links = computed<NavLink[]>(() =>
     [
-        { label: 'Dashboard', href: '/admin', icon: LayoutDashboard, show: true },
-        { label: 'Challenges', href: '/admin/challenges', icon: Flag, show: !!can.value?.author },
-        { label: 'Writeups', href: '/admin/writeups', icon: FileText, show: !!can.value?.moderate },
-        { label: 'Reports', href: '/admin/reports', icon: ShieldAlert, show: !!can.value?.moderate },
-        { label: 'Users', href: '/admin/users', icon: Users, show: !!can.value?.manage_users },
-        { label: 'Audit log', href: '/admin/audit', icon: ScrollText, show: !!can.value?.view_audit },
+        {
+            label: 'Dashboard',
+            href: '/admin',
+            icon: LayoutDashboard,
+            show: true,
+        },
+        {
+            label: 'Challenges',
+            href: '/admin/challenges',
+            icon: Flag,
+            show: !!can.value?.author,
+        },
+        {
+            label: 'Writeups',
+            href: '/admin/writeups',
+            icon: FileText,
+            show: !!can.value?.moderate,
+        },
+        {
+            label: 'Reports',
+            href: '/admin/reports',
+            icon: ShieldAlert,
+            show: !!can.value?.moderate,
+        },
+        {
+            label: 'Users',
+            href: '/admin/users',
+            icon: Users,
+            show: !!can.value?.manage_users,
+        },
+        {
+            label: 'Audit log',
+            href: '/admin/audit',
+            icon: ScrollText,
+            show: !!can.value?.view_audit,
+        },
     ].filter((link) => link.show),
 );
 

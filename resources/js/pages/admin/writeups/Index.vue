@@ -45,7 +45,11 @@ function setStatus(status: string): void {
 }
 
 function approve(w: Writeup): void {
-    router.post(w.approve_url, { note: notes[w.id] ?? '' }, { preserveScroll: true });
+    router.post(
+        w.approve_url,
+        { note: notes[w.id] ?? '' },
+        { preserveScroll: true },
+    );
 }
 
 function reject(w: Writeup): void {
@@ -59,9 +63,12 @@ function reject(w: Writeup): void {
 }
 
 const statusStyle: Record<string, string> = {
-    pending: 'border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-300',
-    approved: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300',
-    rejected: 'border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-300',
+    pending:
+        'border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-300',
+    approved:
+        'border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300',
+    rejected:
+        'border-rose-500/30 bg-rose-500/10 text-rose-600 dark:text-rose-300',
 };
 
 function formatDate(iso: string | null): string {
@@ -76,13 +83,17 @@ const activeStatus = props.filters.status;
 
     <div class="mx-auto w-full max-w-4xl px-6 py-8">
         <header class="mb-6">
-            <h1 class="text-2xl font-bold tracking-tight">Writeup moderation</h1>
+            <h1 class="text-2xl font-bold tracking-tight">
+                Writeup moderation
+            </h1>
             <p class="mt-1 text-sm text-muted-foreground">
                 {{ writeups.meta.total }} in this view
             </p>
         </header>
 
-        <div class="mb-6 flex gap-1 rounded-md border border-border bg-card p-1">
+        <div
+            class="mb-6 flex gap-1 rounded-md border border-border bg-card p-1"
+        >
             <button
                 v-for="s in options.statuses"
                 :key="s"
@@ -112,7 +123,9 @@ const activeStatus = props.filters.status;
                 :key="w.id"
                 class="rounded-lg border border-border bg-card p-5"
             >
-                <div class="mb-3 flex flex-wrap items-center justify-between gap-2">
+                <div
+                    class="mb-3 flex flex-wrap items-center justify-between gap-2"
+                >
                     <div class="flex items-center gap-2 text-sm">
                         <a
                             v-if="w.challenge.url"
@@ -133,7 +146,9 @@ const activeStatus = props.filters.status;
                                 {{ w.author.display_name ?? w.author.username }}
                             </Link>
                         </span>
-                        <span class="text-xs text-muted-foreground uppercase">{{ w.locale }}</span>
+                        <span class="text-xs text-muted-foreground uppercase">{{
+                            w.locale
+                        }}</span>
                     </div>
                     <span
                         class="rounded-full border px-2 py-0.5 text-xs font-medium capitalize"
@@ -152,8 +167,12 @@ const activeStatus = props.filters.status;
                     v-if="w.moderation_note"
                     class="mt-3 rounded-md border border-border bg-accent/40 px-3 py-2 text-sm"
                 >
-                    <span class="text-muted-foreground">Note:</span> {{ w.moderation_note }}
-                    <span v-if="w.moderator" class="text-xs text-muted-foreground">
+                    <span class="text-muted-foreground">Note:</span>
+                    {{ w.moderation_note }}
+                    <span
+                        v-if="w.moderator"
+                        class="text-xs text-muted-foreground"
+                    >
                         — {{ w.moderator }}
                     </span>
                 </div>
@@ -204,7 +223,10 @@ const activeStatus = props.filters.status;
                 Previous
             </Link>
             <span v-else />
-            <span>Page {{ writeups.meta.current_page }} of {{ writeups.meta.last_page }}</span>
+            <span
+                >Page {{ writeups.meta.current_page }} of
+                {{ writeups.meta.last_page }}</span
+            >
             <Link
                 v-if="writeups.links.next"
                 :href="writeups.links.next"

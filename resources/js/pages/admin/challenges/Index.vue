@@ -67,12 +67,17 @@ watch(
 const statusStyle: Record<Status, string> = {
     draft: 'border-slate-500/30 bg-slate-500/10 text-muted-foreground',
     review: 'border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-300',
-    published: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300',
+    published:
+        'border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300',
     archived: 'border-zinc-500/30 bg-zinc-500/10 text-muted-foreground',
 };
 
 function lifecycle(slug: string, action: 'publish' | 'archive'): void {
-    router.post(`/admin/challenges/${slug}/${action}`, {}, { preserveScroll: true });
+    router.post(
+        `/admin/challenges/${slug}/${action}`,
+        {},
+        { preserveScroll: true },
+    );
 }
 
 const isEmpty = computed(() => props.challenges.data.length === 0);
@@ -97,7 +102,9 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
             </Link>
         </header>
 
-        <div class="mb-6 grid gap-3 rounded-lg border border-border bg-card p-4 sm:grid-cols-3">
+        <div
+            class="mb-6 grid gap-3 rounded-lg border border-border bg-card p-4 sm:grid-cols-3"
+        >
             <select
                 v-model="state.status"
                 class="rounded-md border border-border bg-background px-3 py-2 text-sm focus:border-cyan-400 focus:outline-none"
@@ -130,7 +137,10 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
             No challenges match these filters.
         </div>
 
-        <div v-else class="overflow-x-auto rounded-lg border border-border bg-card">
+        <div
+            v-else
+            class="overflow-x-auto rounded-lg border border-border bg-card"
+        >
             <table class="w-full min-w-[720px] text-sm">
                 <thead
                     class="border-b border-border text-left text-xs tracking-wide text-muted-foreground uppercase"
@@ -142,7 +152,9 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
                         <th class="px-4 py-3 font-medium">Pts</th>
                         <th class="px-4 py-3 font-medium">Solves</th>
                         <th class="px-4 py-3 font-medium">Locales</th>
-                        <th class="px-4 py-3 text-right font-medium">Actions</th>
+                        <th class="px-4 py-3 text-right font-medium">
+                            Actions
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-border">
@@ -155,7 +167,9 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
                             <div class="font-medium">{{ row.title }}</div>
                             <div class="text-xs text-muted-foreground">
                                 {{ row.slug }}
-                                <span v-if="row.author"> · {{ row.author }}</span>
+                                <span v-if="row.author">
+                                    · {{ row.author }}</span
+                                >
                             </div>
                         </td>
                         <td class="px-4 py-3">
@@ -170,8 +184,12 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
                             {{ row.category }} / {{ row.difficulty }}
                         </td>
                         <td class="px-4 py-3 tabular-nums">{{ row.points }}</td>
-                        <td class="px-4 py-3 tabular-nums">{{ row.solve_count }}</td>
-                        <td class="px-4 py-3 text-xs uppercase text-muted-foreground">
+                        <td class="px-4 py-3 tabular-nums">
+                            {{ row.solve_count }}
+                        </td>
+                        <td
+                            class="px-4 py-3 text-xs text-muted-foreground uppercase"
+                        >
                             {{ row.locales.join(' ') || '—' }}
                         </td>
                         <td class="px-4 py-3">
@@ -193,7 +211,9 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
                                     <ExternalLink class="h-4 w-4" />
                                 </a>
                                 <button
-                                    v-if="canReview && row.status !== 'published'"
+                                    v-if="
+                                        canReview && row.status !== 'published'
+                                    "
                                     type="button"
                                     title="Publish"
                                     class="rounded-md p-2 text-muted-foreground transition hover:bg-emerald-500/10 hover:text-emerald-500"
@@ -202,7 +222,9 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
                                     <Rocket class="h-4 w-4" />
                                 </button>
                                 <button
-                                    v-if="canReview && row.status !== 'archived'"
+                                    v-if="
+                                        canReview && row.status !== 'archived'
+                                    "
                                     type="button"
                                     title="Archive"
                                     class="rounded-md p-2 text-muted-foreground transition hover:bg-rose-500/10 hover:text-rose-500"
@@ -230,7 +252,10 @@ const isEmpty = computed(() => props.challenges.data.length === 0);
                 Previous
             </Link>
             <span v-else />
-            <span>Page {{ challenges.meta.current_page }} of {{ challenges.meta.last_page }}</span>
+            <span
+                >Page {{ challenges.meta.current_page }} of
+                {{ challenges.meta.last_page }}</span
+            >
             <Link
                 v-if="challenges.links.next"
                 :href="challenges.links.next"

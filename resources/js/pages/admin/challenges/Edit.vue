@@ -99,9 +99,13 @@ const form = useForm({
     translations: buildTranslations(),
 });
 
-const activeLocale = ref(props.options.locales.includes('ru') ? 'ru' : props.options.locales[0]);
+const activeLocale = ref(
+    props.options.locales.includes('ru') ? 'ru' : props.options.locales[0],
+);
 
-const derivedPoints = computed(() => props.options.difficulty_points[form.difficulty] ?? 0);
+const derivedPoints = computed(
+    () => props.options.difficulty_points[form.difficulty] ?? 0,
+);
 
 function submit(): void {
     if (isEdit.value && props.update_url) {
@@ -174,13 +178,16 @@ function humanBytes(bytes: number): string {
 const statusStyle: Record<string, string> = {
     draft: 'border-slate-500/30 bg-slate-500/10 text-muted-foreground',
     review: 'border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-300',
-    published: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300',
+    published:
+        'border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300',
     archived: 'border-zinc-500/30 bg-zinc-500/10 text-muted-foreground',
 };
 </script>
 
 <template>
-    <Head :title="isEdit ? `Edit ${form.slug} · Admin` : 'New challenge · Admin'" />
+    <Head
+        :title="isEdit ? `Edit ${form.slug} · Admin` : 'New challenge · Admin'"
+    />
 
     <div class="mx-auto w-full max-w-5xl px-6 py-8">
         <div class="mb-6 flex items-center justify-between gap-4">
@@ -218,7 +225,10 @@ const statusStyle: Record<string, string> = {
                 </div>
             </div>
 
-            <div v-if="challenge" class="flex flex-wrap items-center justify-end gap-2">
+            <div
+                v-if="challenge"
+                class="flex flex-wrap items-center justify-end gap-2"
+            >
                 <button
                     v-if="challenge.actions.submit_review"
                     type="button"
@@ -264,7 +274,9 @@ const statusStyle: Record<string, string> = {
         <form class="space-y-8" @submit.prevent="submit">
             <!-- Metadata -->
             <section class="rounded-lg border border-border bg-card p-5">
-                <h2 class="mb-4 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+                <h2
+                    class="mb-4 text-sm font-semibold tracking-wide text-muted-foreground uppercase"
+                >
                     Metadata
                 </h2>
                 <div class="grid gap-4 sm:grid-cols-2">
@@ -275,7 +287,10 @@ const statusStyle: Record<string, string> = {
                             type="text"
                             class="rounded-md border border-border bg-background px-3 py-2 focus:border-cyan-400 focus:outline-none"
                         />
-                        <span v-if="form.errors.slug" class="text-xs text-rose-500">
+                        <span
+                            v-if="form.errors.slug"
+                            class="text-xs text-rose-500"
+                        >
                             {{ form.errors.slug }}
                         </span>
                     </label>
@@ -287,27 +302,41 @@ const statusStyle: Record<string, string> = {
                                 v-model="form.category"
                                 class="rounded-md border border-border bg-background px-3 py-2 focus:border-cyan-400 focus:outline-none"
                             >
-                                <option v-for="c in options.categories" :key="c" :value="c">
+                                <option
+                                    v-for="c in options.categories"
+                                    :key="c"
+                                    :value="c"
+                                >
                                     {{ c }}
                                 </option>
                             </select>
                         </label>
                         <label class="flex flex-col gap-1 text-sm">
-                            <span class="text-muted-foreground">Difficulty</span>
+                            <span class="text-muted-foreground"
+                                >Difficulty</span
+                            >
                             <select
                                 v-model="form.difficulty"
                                 class="rounded-md border border-border bg-background px-3 py-2 focus:border-cyan-400 focus:outline-none"
                             >
-                                <option v-for="d in options.difficulties" :key="d" :value="d">
+                                <option
+                                    v-for="d in options.difficulties"
+                                    :key="d"
+                                    :value="d"
+                                >
                                     {{ d }}
                                 </option>
                             </select>
                         </label>
                     </div>
 
-                    <div class="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div
+                        class="flex items-center gap-2 text-sm text-muted-foreground"
+                    >
                         Points (auto):
-                        <span class="font-semibold text-foreground tabular-nums">
+                        <span
+                            class="font-semibold text-foreground tabular-nums"
+                        >
                             {{ derivedPoints }}
                         </span>
                     </div>
@@ -318,7 +347,11 @@ const statusStyle: Record<string, string> = {
                             v-model="form.flag_type"
                             class="rounded-md border border-border bg-background px-3 py-2 focus:border-cyan-400 focus:outline-none"
                         >
-                            <option v-for="ft in options.flag_types" :key="ft" :value="ft">
+                            <option
+                                v-for="ft in options.flag_types"
+                                :key="ft"
+                                :value="ft"
+                            >
                                 {{ ft }}
                             </option>
                         </select>
@@ -335,7 +368,10 @@ const statusStyle: Record<string, string> = {
                             placeholder="HTP{...}"
                             class="rounded-md border border-border bg-background px-3 py-2 font-mono focus:border-cyan-400 focus:outline-none"
                         />
-                        <span v-if="form.errors.static_flag" class="text-xs text-rose-500">
+                        <span
+                            v-if="form.errors.static_flag"
+                            class="text-xs text-rose-500"
+                        >
                             {{ form.errors.static_flag }}
                         </span>
                     </label>
@@ -343,7 +379,8 @@ const statusStyle: Record<string, string> = {
                         v-else
                         class="rounded-md border border-dashed border-border px-3 py-2 text-xs text-muted-foreground"
                     >
-                        Dynamic: a per-user flag is generated on submit (HMAC of user + challenge).
+                        Dynamic: a per-user flag is generated on submit (HMAC of
+                        user + challenge).
                     </div>
 
                     <label class="flex flex-col gap-1 text-sm sm:col-span-2">
@@ -356,7 +393,10 @@ const statusStyle: Record<string, string> = {
                             placeholder="HTP\{[a-zA-Z0-9_]+\}"
                             class="rounded-md border border-border bg-background px-3 py-2 font-mono focus:border-cyan-400 focus:outline-none"
                         />
-                        <span v-if="form.errors.flag_format" class="text-xs text-rose-500">
+                        <span
+                            v-if="form.errors.flag_format"
+                            class="text-xs text-rose-500"
+                        >
                             {{ form.errors.flag_format }}
                         </span>
                     </label>
@@ -364,12 +404,19 @@ const statusStyle: Record<string, string> = {
             </section>
 
             <!-- Translations (edit mode only) -->
-            <section v-if="isEdit" class="rounded-lg border border-border bg-card p-5">
+            <section
+                v-if="isEdit"
+                class="rounded-lg border border-border bg-card p-5"
+            >
                 <div class="mb-4 flex items-center justify-between">
-                    <h2 class="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+                    <h2
+                        class="text-sm font-semibold tracking-wide text-muted-foreground uppercase"
+                    >
                         Content
                     </h2>
-                    <div class="flex gap-1 rounded-md border border-border p-0.5">
+                    <div
+                        class="flex gap-1 rounded-md border border-border p-0.5"
+                    >
                         <button
                             v-for="locale in options.locales"
                             :key="locale"
@@ -389,7 +436,9 @@ const statusStyle: Record<string, string> = {
 
                 <div class="space-y-4">
                     <label class="flex flex-col gap-1 text-sm">
-                        <span class="text-muted-foreground">Title ({{ activeLocale }})</span>
+                        <span class="text-muted-foreground"
+                            >Title ({{ activeLocale }})</span
+                        >
                         <input
                             v-model="form.translations[activeLocale].title"
                             type="text"
@@ -401,14 +450,18 @@ const statusStyle: Record<string, string> = {
                             Description ({{ activeLocale }}) — Markdown
                         </span>
                         <textarea
-                            v-model="form.translations[activeLocale].description"
+                            v-model="
+                                form.translations[activeLocale].description
+                            "
                             rows="10"
                             class="rounded-md border border-border bg-background px-3 py-2 font-mono text-sm focus:border-cyan-400 focus:outline-none"
                         />
                     </label>
                     <div class="grid gap-4 sm:grid-cols-2">
                         <label class="flex flex-col gap-1 text-sm">
-                            <span class="text-muted-foreground">Hint 1 (soft)</span>
+                            <span class="text-muted-foreground"
+                                >Hint 1 (soft)</span
+                            >
                             <textarea
                                 v-model="form.translations[activeLocale].hint_1"
                                 rows="3"
@@ -416,7 +469,9 @@ const statusStyle: Record<string, string> = {
                             />
                         </label>
                         <label class="flex flex-col gap-1 text-sm">
-                            <span class="text-muted-foreground">Hint 2 (strong)</span>
+                            <span class="text-muted-foreground"
+                                >Hint 2 (strong)</span
+                            >
                             <textarea
                                 v-model="form.translations[activeLocale].hint_2"
                                 rows="3"
@@ -425,15 +480,20 @@ const statusStyle: Record<string, string> = {
                         </label>
                     </div>
                     <p class="text-xs text-muted-foreground">
-                        A locale needs both a title and description to appear to users. RU is the
-                        mandatory base locale.
+                        A locale needs both a title and description to appear to
+                        users. RU is the mandatory base locale.
                     </p>
                 </div>
             </section>
 
             <!-- Files (edit mode only) -->
-            <section v-if="isEdit && challenge" class="rounded-lg border border-border bg-card p-5">
-                <h2 class="mb-4 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+            <section
+                v-if="isEdit && challenge"
+                class="rounded-lg border border-border bg-card p-5"
+            >
+                <h2
+                    class="mb-4 text-sm font-semibold tracking-wide text-muted-foreground uppercase"
+                >
                     Files
                 </h2>
 
@@ -461,16 +521,22 @@ const statusStyle: Record<string, string> = {
                     />
                 </div>
 
-                <ul v-if="challenge.files.length" class="mt-4 divide-y divide-border">
+                <ul
+                    v-if="challenge.files.length"
+                    class="mt-4 divide-y divide-border"
+                >
                     <li
                         v-for="file in challenge.files"
                         :key="file.id"
                         class="flex items-center justify-between gap-4 py-2 text-sm"
                     >
                         <div class="min-w-0">
-                            <div class="truncate font-medium">{{ file.filename }}</div>
+                            <div class="truncate font-medium">
+                                {{ file.filename }}
+                            </div>
                             <div class="text-xs text-muted-foreground">
-                                {{ humanBytes(file.size_bytes) }} · {{ file.mime_type }}
+                                {{ humanBytes(file.size_bytes) }} ·
+                                {{ file.mime_type }}
                             </div>
                         </div>
                         <button
