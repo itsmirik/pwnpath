@@ -56,6 +56,7 @@ function metaText(meta: Record<string, unknown> | null): string {
     if (!meta || Object.keys(meta).length === 0) {
         return '';
     }
+
     return JSON.stringify(meta);
 }
 </script>

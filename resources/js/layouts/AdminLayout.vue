@@ -7,9 +7,10 @@ import {
     LayoutDashboard,
     ScrollText,
     ShieldAlert,
-    Users,
-    type LucideIcon,
+    Users
+    
 } from '@lucide/vue';
+import type {LucideIcon} from '@lucide/vue';
 import { computed } from 'vue';
 import { Toaster } from '@/components/ui/sonner';
 

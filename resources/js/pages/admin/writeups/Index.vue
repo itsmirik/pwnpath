@@ -50,9 +50,11 @@ function approve(w: Writeup): void {
 
 function reject(w: Writeup): void {
     const note = (notes[w.id] ?? '').trim();
+
     if (!note) {
         return;
     }
+
     router.post(w.reject_url, { note }, { preserveScroll: true });
 }
 

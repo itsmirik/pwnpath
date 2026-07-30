@@ -10,8 +10,8 @@ import {
     UserPlus,
     Zap,
 } from '@lucide/vue';
-import { computed, ref } from 'vue';
 import type { LucideIcon } from '@lucide/vue';
+import { computed, ref } from 'vue';
 
 type Stats = {
     pending_writeups: number;
@@ -43,6 +43,7 @@ function runSync(): void {
     if (syncing.value) {
         return;
     }
+
     syncing.value = true;
     router.post(
         '/admin/sync',

@@ -58,9 +58,11 @@ function applyFilters(): void {
 
 function changeRole(row: Row, event: Event): void {
     const role = (event.target as HTMLSelectElement).value;
+
     if (role === row.role) {
         return;
     }
+
     router.post(row.role_url, { role }, { preserveScroll: true });
 }
 

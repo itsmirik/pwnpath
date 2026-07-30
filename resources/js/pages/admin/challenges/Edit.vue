@@ -75,6 +75,7 @@ const statusError = computed(
 
 function buildTranslations(): Record<string, Translation> {
     const out: Record<string, Translation> = {};
+
     for (const locale of props.options.locales) {
         const t = props.challenge?.translations?.[locale];
         out[locale] = {
@@ -84,6 +85,7 @@ function buildTranslations(): Record<string, Translation> {
             hint_2: t?.hint_2 ?? '',
         };
     }
+
     return out;
 }
 
@@ -113,6 +115,7 @@ function transition(url: string | null): void {
     if (!url) {
         return;
     }
+
     router.post(url, {}, { preserveScroll: true });
 }
 
@@ -122,6 +125,7 @@ const fileInput = ref<HTMLInputElement | null>(null);
 
 function onDrop(event: DragEvent): void {
     dragging.value = false;
+
     if (event.dataTransfer?.files?.length) {
         uploadFiles(event.dataTransfer.files);
     }
@@ -129,9 +133,11 @@ function onDrop(event: DragEvent): void {
 
 function onPick(event: Event): void {
     const target = event.target as HTMLInputElement;
+
     if (target.files?.length) {
         uploadFiles(target.files);
     }
+
     target.value = '';
 }
 
@@ -139,6 +145,7 @@ function uploadFiles(files: FileList): void {
     if (!props.challenge) {
         return;
     }
+
     for (const file of Array.from(files)) {
         router.post(
             props.challenge.upload_url,
@@ -156,9 +163,11 @@ function humanBytes(bytes: number): string {
     if (bytes >= 1024 * 1024) {
         return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
     }
+
     if (bytes >= 1024) {
         return `${(bytes / 1024).toFixed(1)} KB`;
     }
+
     return `${bytes} B`;
 }
 
