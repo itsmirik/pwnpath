@@ -1,0 +1,10 @@
+slug: crypto-otp-weak-key
+category: crypto
+difficulty: medium
+flag_type: static
+static_flag: "byuctf{COSMOCOUGR}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "One Time Pad"
+  ru: "Одноразовый блокнот"
+  uz: "Bir martalik shifr"

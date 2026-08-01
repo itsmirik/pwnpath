@@ -1,0 +1,10 @@
+slug: crc-confusion
+category: forensics
+difficulty: hard
+flag_type: static
+static_flag: "byuctf{cyclic_redundancy_checks_are_used_to_detect_errors_in_data_transmission}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "CRC Confusion"
+  ru: "Путаница с CRC"
+  uz: "CRC chalkashligi"

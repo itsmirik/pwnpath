@@ -1,0 +1,10 @@
+slug: chicken-esolang
+category: misc
+difficulty: medium
+flag_type: static
+static_flag: "byuctf{th3r3_4r3_3ven_w0rs3_es0l4ngs_but_1m_lazzy}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Chicken Chicken Chicken"
+  ru: "Курица Курица Курица"
+  uz: "Tovuq Tovuq Tovuq"

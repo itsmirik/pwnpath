@@ -1,0 +1,10 @@
+slug: crypto-rsa-common-prime
+category: crypto
+difficulty: medium
+flag_type: static
+static_flag: "byuctf{coprime_means_factoring_N_becomes_much_easier}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "RSA: Common Prime"
+  ru: "RSA: Общий делитель"
+  uz: "RSA: Umumiy tub son"

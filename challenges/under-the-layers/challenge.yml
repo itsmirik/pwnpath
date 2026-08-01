@@ -1,0 +1,10 @@
+slug: under-the-layers
+category: forensics
+difficulty: medium
+flag_type: static
+static_flag: "byuctf{g1mp_4llows_you_to_see_under_l4yers}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Under the Layers"
+  ru: "Под слоями"
+  uz: "Qatlamlar ostida"

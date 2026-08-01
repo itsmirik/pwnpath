@@ -1,0 +1,10 @@
+slug: hidden-in-plain-sight
+category: forensics
+difficulty: easy
+flag_type: static
+static_flag: "ctf{steganography_is_hiding_messages_in_plain_sight}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "How Do Computers Store Photos?"
+  ru: "Как компьютеры хранят фото?"
+  uz: "Kompyuterlar rasmlarni qanday saqlaydi?"

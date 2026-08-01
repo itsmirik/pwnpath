@@ -1,0 +1,10 @@
+slug: unicode-nightmare
+category: misc
+difficulty: hard
+flag_type: static
+static_flag: "ctf{i_l0ve_unic0d3_bc_y0u_can_d0_th3_stupid3st_stuff}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Unicode Nightmare"
+  ru: "Юникод-кошмар"
+  uz: "Unicode Dahshati"

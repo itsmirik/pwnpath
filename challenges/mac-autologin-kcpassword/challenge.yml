@@ -1,0 +1,10 @@
+slug: mac-autologin-kcpassword
+category: forensics
+difficulty: easy
+flag_type: static
+static_flag: "byuctf{wow_Macs_really_have_it_encrypted_with_a_static_key_lol}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Auto-Login Secret"
+  ru: "Секрет автовхода"
+  uz: "Avto-kirish siri"

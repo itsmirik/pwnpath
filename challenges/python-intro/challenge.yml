@@ -1,0 +1,10 @@
+slug: python-intro
+category: misc
+difficulty: easy
+flag_type: static
+static_flag: "byuctf{th1s_1s_a_bas1c_python_scr1pt_that_can_be_reverse_eng1neered}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Python Intro"
+  ru: "Введение в Python"
+  uz: "Python Kirish"

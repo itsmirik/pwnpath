@@ -1,0 +1,10 @@
+slug: crypto-rsa-same-modulus
+category: crypto
+difficulty: hard
+flag_type: static
+static_flag: "byuctf{NEVER_USE_SAME_MODULUS_WITH_DIFFERENT_e_VALUES}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "RSA: Same Modulus"
+  ru: "RSA: Один модуль"
+  uz: "RSA: Bir xil modul"

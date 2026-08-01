@@ -1,0 +1,10 @@
+slug: misc-fruit-password
+category: misc
+difficulty: hard
+flag_type: static
+static_flag: "ctf{blackberrygrapepassionfruit}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Fruit Salad"
+  ru: "Фруктовый салат"
+  uz: "Meva salati"

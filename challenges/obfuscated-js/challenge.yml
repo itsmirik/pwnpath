@@ -1,0 +1,10 @@
+slug: obfuscated-js
+category: misc
+difficulty: easy
+flag_type: static
+static_flag: "byuctf{one_of_these_days_imma_make_a_tool_to_deobfuscate_this}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Obfuscated JS"
+  ru: "Обфусцированный JS"
+  uz: "Obfuskatsiya qilingan JS"

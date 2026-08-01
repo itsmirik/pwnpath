@@ -1,0 +1,10 @@
+slug: bitplane-briefing
+category: forensics
+difficulty: medium
+flag_type: static
+static_flag: "ctf{pictures_can_actually_be_really_complicated}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Cyber Risk"
+  ru: "Киберриск"
+  uz: "Kiber xavf"

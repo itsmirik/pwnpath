@@ -1,0 +1,10 @@
+slug: crypto-dotsies-compact
+category: crypto
+difficulty: easy
+flag_type: static
+static_flag: "byuctf{well its definitely more compact}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Compact"
+  ru: "Компактный"
+  uz: "Ixcham"

@@ -1,0 +1,10 @@
+slug: crypto-rsa-small-primes
+category: crypto
+difficulty: easy
+flag_type: static
+static_flag: "byuctf{too_smol}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "RSA: Too Small"
+  ru: "RSA: Слишком маленький"
+  uz: "RSA: Juda kichik"

@@ -1,0 +1,10 @@
+slug: crypto-rsa-hastad-broadcast
+category: crypto
+difficulty: hard
+flag_type: static
+static_flag: "byuctf{hastad_broadcast_attack_is_why_e_needs_to_be_very_large}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "RSA: Broadcast"
+  ru: "RSA: Широковещание"
+  uz: "RSA: Keng eshittirish"

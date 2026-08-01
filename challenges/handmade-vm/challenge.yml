@@ -1,0 +1,10 @@
+slug: handmade-vm
+category: misc
+difficulty: medium
+flag_type: static
+static_flag: "byuctf{vms_just_1mplem3nt_0pcodes_&_instruct10n5}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Handmade VM"
+  ru: "Самодельная ВМ"
+  uz: "Qo'lbola VM"

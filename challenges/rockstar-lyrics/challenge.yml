@@ -1,0 +1,10 @@
+slug: rockstar-lyrics
+category: misc
+difficulty: medium
+flag_type: static
+static_flag: "byuctf{go_r0ckstar!}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Malicious Lyrics"
+  ru: "Вредоносная лирика"
+  uz: "Zararli qo'shiq matni"

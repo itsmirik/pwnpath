@@ -1,0 +1,1 @@
+Each line's checksum is a CRC of the shown input using an unknown 8-bit polynomial. Brute-force the polynomial over printable ASCII (~95 values) for each line; the value that produces the matching checksum on the corresponding line in all three files is a character of the flag. Concatenate them in order.

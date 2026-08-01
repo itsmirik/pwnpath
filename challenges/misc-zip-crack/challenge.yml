@@ -1,0 +1,10 @@
+slug: misc-zip-crack
+category: misc
+difficulty: medium
+flag_type: static
+static_flag: "ctf{digital_forensics_is_my_favorite}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Guessy"
+  ru: "Угадайка"
+  uz: "Topqirlik"

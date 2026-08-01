@@ -1,0 +1,10 @@
+slug: correct-crc
+category: forensics
+difficulty: hard
+flag_type: static
+static_flag: "byuctf{ad74b76d}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "The Correct CRC"
+  ru: "Правильный CRC"
+  uz: "To'g'ri CRC"

@@ -1,0 +1,1 @@
+Crack the password (`password123`), then XOR the bytes in the ZIP entry's extra field with 0xabcd — it says "flag is the correct CRC". Unzipping reports a CRC mismatch; the *correct* CRC value (8 hex digits) is the flag, wrapped as `byuctf{...}`.

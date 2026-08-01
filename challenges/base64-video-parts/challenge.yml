@@ -1,0 +1,10 @@
+slug: base64-video-parts
+category: forensics
+difficulty: easy
+flag_type: static
+static_flag: "byuctf{what_can_base64_not_do_ixl36byb}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Liam's Idea"
+  ru: "Идея Лиама"
+  uz: "Liamning g'oyasi"

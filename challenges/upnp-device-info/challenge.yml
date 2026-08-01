@@ -1,0 +1,10 @@
+slug: upnp-device-info
+category: misc
+difficulty: medium
+flag_type: static
+static_flag: "byuctf{gIDGXfYaZe2aIeqhLGzddw==}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "UPnP Device Info"
+  ru: "Информация об устройстве UPnP"
+  uz: "UPnP qurilma ma'lumoti"

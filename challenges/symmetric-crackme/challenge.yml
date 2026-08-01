@@ -1,0 +1,10 @@
+slug: symmetric-crackme
+category: misc
+difficulty: hard
+flag_type: static
+static_flag: "ctf{reverse_eng1neering_14_a_hard_challenge,_no??}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Symmetric Crackme"
+  ru: "Симметричный крякми"
+  uz: "Simmetrik crackme"

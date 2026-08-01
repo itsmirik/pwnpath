@@ -1,0 +1,10 @@
+slug: lsb-leak
+category: forensics
+difficulty: medium
+flag_type: static
+static_flag: "ctf{there_are_1001_different_ways_to_hide_flags}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "Cyber Risk 2"
+  ru: "Киберриск 2"
+  uz: "Kiber xavf 2"

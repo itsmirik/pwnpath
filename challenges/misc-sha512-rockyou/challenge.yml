@@ -1,0 +1,10 @@
+slug: misc-sha512-rockyou
+category: misc
+difficulty: easy
+flag_type: static
+static_flag: "ctf{me160879ro}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "SHA-512"
+  ru: "SHA-512"
+  uz: "SHA-512"

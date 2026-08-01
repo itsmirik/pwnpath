@@ -27,3 +27,7 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# Internal CTF solutions/flags — never commit
+challenges-writeup.md
+challenges-solutions.md

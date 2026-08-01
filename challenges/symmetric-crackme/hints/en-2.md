@@ -1,0 +1,1 @@
+Compile a fake `memcmp` that prints its two arguments, run with `LD_PRELOAD=./fake.so ./rev`, and the transformed target string is revealed. Because the encoding is its own inverse, feeding that string back yields the flag.

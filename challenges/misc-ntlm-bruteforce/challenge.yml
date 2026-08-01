@@ -1,0 +1,10 @@
+slug: misc-ntlm-bruteforce
+category: misc
+difficulty: easy
+flag_type: static
+static_flag: "ctf{heyo}"
+flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+title:
+  en: "NTLM"
+  ru: "NTLM"
+  uz: "NTLM"
