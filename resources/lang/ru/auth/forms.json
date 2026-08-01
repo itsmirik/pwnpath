@@ -1,6 +1,6 @@
 {
     "register": {
-        "title": "Регистрация в HackTepa",
+        "title": "Регистрация в PwnPath",
         "description": "Бесплатно. Без карты. Подтвердите email — и в бой.",
         "username": "Логин",
         "username_hint": "3–32 символа. Строчные латинские, цифры, подчёркивания.",
@@ -15,7 +15,7 @@
         "log_in": "Войти"
     },
     "login": {
-        "title": "Вход в HackTepa",
+        "title": "Вход в PwnPath",
         "description": "Введите email и пароль.",
         "email": "Email",
         "password": "Пароль",

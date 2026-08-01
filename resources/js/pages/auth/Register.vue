@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Form, Head, usePage } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import HCaptcha from '@/components/HCaptcha.vue';
 import InputError from '@/components/InputError.vue';
@@ -22,6 +23,7 @@ import { store } from '@/routes/register';
 const { t } = useI18n();
 const page = usePage();
 const initialLocale = (page.props.locale as 'ru' | 'uz' | 'en') ?? 'ru';
+const captcha = ref<InstanceType<typeof HCaptcha> | null>(null);
 
 defineProps<{
     passwordRules: string;
@@ -43,6 +45,7 @@ defineOptions({
         :reset-on-success="['password', 'password_confirmation']"
         v-slot="{ errors, processing }"
         class="flex flex-col gap-6"
+        @error="captcha?.reset()"
     >
         <div class="grid gap-6">
             <div class="grid gap-2">
@@ -145,7 +148,7 @@ defineOptions({
                 <InputError :message="errors.password_confirmation" />
             </div>
 
-            <HCaptcha />
+            <HCaptcha ref="captcha" />
             <InputError :message="errors['h-captcha-response']" />
 
             <Button

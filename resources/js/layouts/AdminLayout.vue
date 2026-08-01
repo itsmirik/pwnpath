@@ -90,7 +90,7 @@ function isActive(href: string): boolean {
                 class="flex h-14 items-center gap-2 border-b border-border px-4"
             >
                 <Flag class="h-5 w-5 text-cyan-400" />
-                <span class="font-semibold tracking-tight">HackTepa Admin</span>
+                <span class="font-semibold tracking-tight">PwnPath Admin</span>
             </div>
 
             <nav class="flex-1 space-y-1 overflow-y-auto p-3">

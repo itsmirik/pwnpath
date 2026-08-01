@@ -1,6 +1,6 @@
 {
     "register": {
-        "title": "Create your HackTepa account",
+        "title": "Create your PwnPath account",
         "description": "Free forever. No credit card. Verify email to start solving.",
         "username": "Username",
         "username_hint": "3–32 chars. Lowercase letters, numbers, underscores.",
@@ -15,7 +15,7 @@
         "log_in": "Log in"
     },
     "login": {
-        "title": "Log in to HackTepa",
+        "title": "Log in to PwnPath",
         "description": "Enter your email and password below.",
         "email": "Email",
         "password": "Password",

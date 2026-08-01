@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Form, Head } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import HCaptcha from '@/components/HCaptcha.vue';
 import InputError from '@/components/InputError.vue';
@@ -12,6 +13,7 @@ import { login } from '@/routes';
 import { email } from '@/routes/password';
 
 const { t } = useI18n();
+const captcha = ref<InstanceType<typeof HCaptcha> | null>(null);
 
 defineOptions({
     layout: {
@@ -40,6 +42,7 @@ defineProps<{
             v-bind="email.form()"
             v-slot="{ errors, processing }"
             class="space-y-4"
+            @error="captcha?.reset()"
         >
             <div class="grid gap-2">
                 <Label for="email">{{ t('auth.forms.forgot.email') }}</Label>
@@ -54,7 +57,7 @@ defineProps<{
                 <InputError :message="errors.email" />
             </div>
 
-            <HCaptcha />
+            <HCaptcha ref="captcha" />
             <InputError :message="errors['h-captcha-response']" />
 
             <div class="my-6 flex items-center justify-start">

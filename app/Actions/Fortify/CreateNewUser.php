@@ -27,6 +27,13 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
+        // Usernames are stored lowercase; normalize before validating so that
+        // mixed-case input (e.g. "Mirsaid") passes the regex and unique checks
+        // instead of being rejected.
+        if (isset($input['username']) && is_string($input['username'])) {
+            $input['username'] = strtolower($input['username']);
+        }
+
         $rules = [
             ...$this->signupRules(),
             'password' => $this->passwordRules(),
@@ -45,7 +52,7 @@ class CreateNewUser implements CreatesNewUsers
         $this->signupIpLimiter->assertAllowed($ip);
 
         return User::create([
-            'username' => strtolower($input['username']),
+            'username' => $input['username'],
             'email' => $input['email'],
             'password' => $input['password'],
             'display_name' => $input['display_name'],

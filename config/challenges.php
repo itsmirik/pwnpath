@@ -25,13 +25,13 @@ return [
     |
     */
 
-    'source_path' => env('CHALLENGES_SOURCE_PATH', base_path('challenges')),
+    'source_path'     => env('CHALLENGES_SOURCE_PATH', base_path('challenges')),
 
     // Run `git pull` in source_path before reading (needs a git checkout there).
-    'git_pull' => (bool) env('CHALLENGES_GIT_PULL', false),
+    'git_pull'        => (bool)env('CHALLENGES_GIT_PULL', false),
 
     // Upload ceilings (plan §9 checklist).
-    'max_file_bytes' => 10 * 1024 * 1024,    // 10 MB per file
+    'max_file_bytes'  => 10 * 1024 * 1024,    // 10 MB per file
     'max_total_bytes' => 25 * 1024 * 1024,   // 25 MB per challenge
 
     /*
@@ -44,7 +44,7 @@ return [
     |
     */
 
-    'suspicious_hard_solves' => (int) env('SUSPICIOUS_HARD_SOLVES', 5),
-    'suspicious_window_minutes' => (int) env('SUSPICIOUS_WINDOW_MINUTES', 5),
+    'suspicious_hard_solves'    => (int)env('SUSPICIOUS_HARD_SOLVES', 5),
+    'suspicious_window_minutes' => (int)env('SUSPICIOUS_WINDOW_MINUTES', 5),
 
 ];

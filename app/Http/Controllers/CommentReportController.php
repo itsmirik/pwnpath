@@ -40,7 +40,7 @@ class CommentReportController extends Controller
 
         Inertia::flash('toast', [
             'type' => 'success',
-            'message' => __('Report submitted. Thanks for keeping HackTepa clean.'),
+            'message' => __('Report submitted. Thanks for keeping PwnPath clean.'),
         ]);
 
         return redirect()->route('challenges.show', $comment->challenge->slug);

@@ -18,6 +18,7 @@ type HCaptchaApi = {
         opts: { sitekey: string; theme?: string },
     ) => string;
     remove: (id: string) => void;
+    reset: (id: string) => void;
 };
 
 declare global {
@@ -89,6 +90,21 @@ onBeforeUnmount(() => {
         }
     }
 });
+
+// hCaptcha tokens are single-use. After a failed form submit the widget still
+// shows a checkmark but its token is spent, so a resubmit fails until reload.
+// Parent forms call this on validation error to issue a fresh challenge.
+function reset(): void {
+    if (widgetId.value && window.hcaptcha) {
+        try {
+            window.hcaptcha.reset(widgetId.value);
+        } catch {
+            // ignore
+        }
+    }
+}
+
+defineExpose({ reset });
 </script>
 
 <template>

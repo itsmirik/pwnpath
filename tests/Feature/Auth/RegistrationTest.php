@@ -54,6 +54,25 @@ class RegistrationTest extends TestCase
         Notification::assertSentTo($user, VerifyEmail::class);
     }
 
+    public function test_registration_lowercases_mixed_case_username(): void
+    {
+        Notification::fake();
+
+        $response = $this->post(route('register.store'), [
+            'username' => 'Mirsaid',
+            'display_name' => 'Mirsaid',
+            'email' => 'mirsaid@example.com',
+            'locale' => 'ru',
+            'password' => 'password1234',
+            'password_confirmation' => 'password1234',
+            'h-captcha-response' => 'dev-bypass',
+        ]);
+
+        $this->assertAuthenticated();
+        $response->assertRedirect(route('dashboard', absolute: false));
+        $this->assertDatabaseHas('users', ['username' => 'mirsaid']);
+    }
+
     public function test_registration_rejects_invalid_username(): void
     {
         $response = $this->from(route('register'))->post(route('register.store'), [

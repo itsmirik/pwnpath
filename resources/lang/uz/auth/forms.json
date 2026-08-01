@@ -1,6 +1,6 @@
 {
     "register": {
-        "title": "HackTepa'da roʻyxatdan oʻting",
+        "title": "PwnPath'da roʻyxatdan oʻting",
         "description": "Bepul. Karta kerak emas. Email tasdiqlang — masalalarga kirishing.",
         "username": "Login",
         "username_hint": "3–32 belgi. Kichik lotin, raqam, tagchiziq.",
@@ -15,7 +15,7 @@
         "log_in": "Kirish"
     },
     "login": {
-        "title": "HackTepa'ga kirish",
+        "title": "PwnPath'ga kirish",
         "description": "Email va parolni kiriting.",
         "email": "Email",
         "password": "Parol",

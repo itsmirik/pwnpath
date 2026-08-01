@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'username' => 'testuser',
+            'username'     => 'testuser',
             'display_name' => 'Test User',
-            'email' => 'test@example.com',
+            'email'        => 'test@example.com',
         ]);
 
         $this->call(BadgeSeeder::class);
