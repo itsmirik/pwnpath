@@ -21,6 +21,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Behind Cloudflare, the real visitor IP arrives in X-Forwarded-For.
+        // Trusting the proxy makes $request->ip() the visitor (not Cloudflare),
+        // which the signup-IP cap, flag rate-limits and HSTS all depend on.
+        // Safe only because the firewall lets ONLY Cloudflare reach the origin.
+        $middleware->trustProxies(at: '*', headers: Request::HEADER_X_FORWARDED_FOR
+            | Request::HEADER_X_FORWARDED_HOST
+            | Request::HEADER_X_FORWARDED_PORT
+            | Request::HEADER_X_FORWARDED_PROTO);
+
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state', 'locale']);
 
         $middleware->web(append: [
