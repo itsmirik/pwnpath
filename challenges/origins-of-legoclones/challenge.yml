@@ -3,7 +3,7 @@ category: osint
 difficulty: easy
 flag_type: static
 static_flag: "byuctf{https://clonetrooper.fandom.com}"
-flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+flag_format: 'byuctf\{[^}]+\}'
 title:
   en: "Origins of Legoclones"
   ru: "Истоки Legoclones"

@@ -3,7 +3,7 @@ category: forensics
 difficulty: easy
 flag_type: static
 static_flag: "byuctf{just_highlight_the_text_and_change_the_colors!}"
-flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+flag_format: 'byuctf\{[^}]+\}'
 title:
   en: "Redacted Memo"
   ru: "Зацензуренная записка"

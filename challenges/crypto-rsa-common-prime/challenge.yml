@@ -3,7 +3,7 @@ category: crypto
 difficulty: medium
 flag_type: static
 static_flag: "byuctf{coprime_means_factoring_N_becomes_much_easier}"
-flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+flag_format: 'byuctf\{[^}]+\}'
 title:
   en: "RSA: Common Prime"
   ru: "RSA: Общий делитель"

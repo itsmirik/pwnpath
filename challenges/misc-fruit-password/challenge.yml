@@ -3,7 +3,7 @@ category: misc
 difficulty: hard
 flag_type: static
 static_flag: "ctf{blackberrygrapepassionfruit}"
-flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+flag_format: 'ctf\{[^}]+\}'
 title:
   en: "Fruit Salad"
   ru: "Фруктовый салат"

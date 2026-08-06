@@ -3,7 +3,7 @@ category: misc
 difficulty: easy
 flag_type: static
 static_flag: "ctf{me160879ro}"
-flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+flag_format: 'ctf\{[^}]+\}'
 title:
   en: "SHA-512"
   ru: "SHA-512"

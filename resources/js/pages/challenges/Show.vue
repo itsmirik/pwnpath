@@ -103,6 +103,22 @@ type Props = {
 const props = defineProps<Props>();
 const { t } = useI18n();
 
+// Turn the stored flag_format regex (e.g. `byuctf\{[^}]+\}`) into a friendly
+// example like `byuctf{...}`: take the literal prefix before `\{` and unescape
+// the regex backslashes. Falls back to the raw format if there's no `{`.
+const flagExample = computed<string>(() => {
+    const fmt = props.challenge.flag_format ?? '';
+    const idx = fmt.indexOf('\\{');
+
+    if (idx === -1) {
+        return fmt;
+    }
+
+    const prefix = fmt.slice(0, idx).replace(/\\(.)/g, '$1');
+
+    return `${prefix}{...}`;
+});
+
 function toggleUpvote(writeup: WriteupItem): void {
     const options = { preserveScroll: true, preserveState: false };
 
@@ -404,7 +420,7 @@ const hasHints = computed(() => props.challenge.hints.length > 0);
                         type="text"
                         :placeholder="
                             t('challenges.show.submit.placeholder', {
-                                example: 'HTP{...}',
+                                example: flagExample,
                             })
                         "
                         class="flex-1 rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-cyan-400 focus:outline-none"
@@ -426,7 +442,7 @@ const hasHints = computed(() => props.challenge.hints.length > 0);
                 <p class="mt-2 text-xs text-muted-foreground">
                     {{
                         t('challenges.show.submit.help', {
-                            format: challenge.flag_format,
+                            format: flagExample,
                         })
                     }}
                 </p>

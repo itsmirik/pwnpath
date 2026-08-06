@@ -3,7 +3,7 @@ category: forensics
 difficulty: hard
 flag_type: static
 static_flag: "byuctf{kn0wing_f1le_f0rmats_is_k3y}"
-flag_format: 'HTP\{[a-zA-Z0-9_]+\}'
+flag_format: 'byuctf\{[^}]+\}'
 title:
   en: "Dimensionless"
   ru: "Без размеров"
